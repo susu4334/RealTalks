@@ -11,7 +11,5 @@
 	main.jsp<br>
 	main.jsp<br>
 	main.jsp<br>
-	<a href="/login">로그인</a><br>
-	<a href="/googleLogin">회원가입</a><br>
 </body>
 </html>

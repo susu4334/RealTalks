@@ -1,0 +1,6 @@
+create table member (
+    userid varchar2(30) primary key,
+    username varchar2(20) unique,
+    createat date not null,
+    updateat date not null
+)
