@@ -15,7 +15,7 @@ public class AwesomeController {
 	@Autowired
 	AwesomeService service;
 	
-	@GetMapping("/api/awesome")
+	@GetMapping("/api/movie/")
 	public List<AwesomeDTO> awesomeGet() {
 		List<AwesomeDTO> dto = service.selectList();
 		return dto;
