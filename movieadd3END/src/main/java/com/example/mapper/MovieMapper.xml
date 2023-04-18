@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		director_nm, actor_nm, boxoffice_order, star_avg_rate, create_at, update_at)
 		values(#{movie_id}, #{title}, #{release_date}, #{plot}, #{rating}, 
 		#{director_nm}, #{actor_nm}, #{boxoffice_order,jdbcType=INTEGER}, #{star_avg_rate}, 
-		to_char(sysdate), to_char(sysdate))
+		#{create_at}, #{update_at})
 	</insert>
 	
 	<select id="findmovie" parameterType="String" resultType="int">

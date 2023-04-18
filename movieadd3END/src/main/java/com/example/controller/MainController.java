@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.dto.Category;
 import com.example.dto.Movie;
@@ -57,7 +57,7 @@ public class MainController {
 		if (request.getParameter("title")!=null) {
 			title = request.getParameter("title");
 		}
-		 System.out.println("title : "+title);
+		 System.out.println("title"+title);
 		
 		String line = null;
 		String allData = null;
@@ -116,7 +116,7 @@ public class MainController {
         String imageUrlStr = request.getParameter("poster");
         //String imageUrlStr = "http://file.koreafilm.or.kr/thm/01/copy/00/56/24/tn_DST714548.jpg";
         if (request.getParameter("poster").length()==0) {
-        	imageUrlStr = "f1e:///C:/images/noimage.png";	
+        	imageUrlStr = "/images/noimage.png";	
 		}// 이쪽이 문제, 
         
         System.out.println("imageUrlStr : "+imageUrlStr);
@@ -140,7 +140,7 @@ public class MainController {
         byte[] imageBytes = baos.toByteArray();
         
         // 이미지 저장
-        File dir = new File("C:/images/");
+        File dir = new File("/app/web/images");
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -168,6 +168,8 @@ public class MainController {
 			movie.setActor_nm(actor_nm);
 			movie.setBoxoffice_order(null);
 			movie.setStar_avg_rate(0.0);
+			movie.setCreate_at(LocalDateTime.now());
+			movie.setUpdate_at(LocalDateTime.now());
 			
 			n = service.insert(movie);
 			System.out.println("들어간 갯수 : "+n);
@@ -186,6 +188,8 @@ public class MainController {
 			if (count==0) {
 				Category mcategory = new Category();
 				mcategory.setCategory_id(category_id);
+				mcategory.setCreate_at(LocalDateTime.now());
+				mcategory.setUpdate_at(LocalDateTime.now());
 				
 				int n2 = service2.insert(mcategory);
 				System.out.println("카테고리 추가 : "+n2);
@@ -196,15 +200,15 @@ public class MainController {
 				MovieCategory moviecategory = new MovieCategory();
 				moviecategory.setMovie_id(movie_id);
 				moviecategory.setCategory_id(category_id);
+				moviecategory.setCreate_at(LocalDateTime.now());
+				moviecategory.setUpdate_at(LocalDateTime.now());
 				
 				int n3 = service3.insert(moviecategory);
 				System.out.println("db등록 : "+ n3);
 			}
 		}
 		
-		 m.addAttribute("title", title);
-		
-		return "main";
+		return null;
 	}
 	
 }

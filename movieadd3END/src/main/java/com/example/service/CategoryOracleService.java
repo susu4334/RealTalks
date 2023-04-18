@@ -6,39 +6,40 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.MovieDao;
-import com.example.dto.Movie;
+import com.example.dao.CategoryDao;
+import com.example.dto.Category;
 
-@Service("myService")
-public class MovieOracleService implements MovieService{
+@Service("myService2")
+public class CategoryOracleService implements CategoryService{
 	
 	@Autowired
-	MovieDao dao;
+	CategoryDao dao;
 	@Autowired
 	SqlSessionTemplate session;
 	
-	public List<Movie> list(){
+	public List<Category> list(){
 		return dao.list(session);
 	}
 
 	@Override
-	public int insert(Movie dto) {
+	public int insert(Category dto) {
 		return dao.insert(session, dto);
 	}
 	
 	@Override
-	public int find(String movie_id) {
-		return dao.find(session, movie_id);
+	public int find(String category_id) {
+		int n = dao.find(session, category_id);
+		return n;
 	}
 
 	@Override
-	public int update(Movie dto) {
+	public int update(Category dto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int delete(int movieid) {
+	public int delete(String category_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
