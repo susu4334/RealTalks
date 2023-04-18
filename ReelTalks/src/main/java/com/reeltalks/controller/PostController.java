@@ -49,8 +49,6 @@ public class PostController {
 	
 	}
 	 
-	
-	 
 	//게시물 등록
 	@PostMapping("/movie/{movieid}/post")
 	public String addPost(
