@@ -14,8 +14,7 @@ public interface PostDAO {
 
 	public abstract void updateView(SqlSessionTemplate session, int post_id);
 
-	public abstract int deletePost(SqlSessionTemplate session, String post_id);
-
+	public abstract int deletePost(SqlSessionTemplate session, int post_id);
 
 	public abstract String movieTitle(SqlSessionTemplate session, String movie_id);
 

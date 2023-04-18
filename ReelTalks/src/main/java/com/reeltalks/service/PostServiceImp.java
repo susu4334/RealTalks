@@ -27,7 +27,6 @@ public class PostServiceImp implements PostService {
 	//게시물 조회
 	@Override
 	public Tb_Post selectOne(int post_id) {
-		// TODO Auto-generated method stub
 		return dao.selectOne(session,post_id);
 	}
 	
@@ -47,7 +46,7 @@ public class PostServiceImp implements PostService {
 
 	//게시물 삭제
 	@Override
-	public int deletePost(String post_id) {
+	public int deletePost(int post_id) {
 		int num=dao.deletePost(session, post_id);
 		return num;
 	}
@@ -72,6 +71,7 @@ public class PostServiceImp implements PostService {
 		// TODO Auto-generated method stub
 		return dao.addPostSelect(session,user_id);
 	}
+
 	
 
 }

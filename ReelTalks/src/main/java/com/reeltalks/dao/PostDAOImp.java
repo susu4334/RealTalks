@@ -40,8 +40,7 @@ public class PostDAOImp implements PostDAO{
 	
 	//게시물 삭제 
 	@Override
-	public int deletePost(SqlSessionTemplate session, String post_id1) {
-		int post_id=Integer.parseInt(post_id1);
+	public int deletePost(SqlSessionTemplate session, int post_id) {
 		int num=session.delete("deletePost",post_id);
 		return num;
 	}

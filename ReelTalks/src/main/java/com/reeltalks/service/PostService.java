@@ -13,7 +13,7 @@ public interface PostService {
 
 	public abstract void updateView(int post_id);
 
-	public abstract int deletePost(String post_id);
+	public abstract int deletePost(int post_id);
 
 	public abstract String movieTitle(String movie_id);
 
