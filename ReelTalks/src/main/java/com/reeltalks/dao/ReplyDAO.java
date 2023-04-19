@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.reeltalks.dto.ReplyDTO;
+import com.reeltalks.dto.ReplyWithNameDTO;
 
 @Repository
 public class ReplyDAO {
@@ -15,8 +16,8 @@ public class ReplyDAO {
 		return dto;
 	}
 	
-	public List<ReplyDTO> reply_select_list(SqlSessionTemplate session, int post_id) {
-		List<ReplyDTO> list = session.selectList("ReplyMapper.reply_select_list", post_id);
+	public List<ReplyWithNameDTO> reply_select_list(SqlSessionTemplate session, int post_id) {
+		List<ReplyWithNameDTO> list = session.selectList("ReplyMapper.reply_select_list", post_id);
 		return list;
 	}
 
@@ -30,5 +31,10 @@ public class ReplyDAO {
 
 	public void reply_delete(SqlSessionTemplate session, String reply_id) {
 		session.update("ReplyMapper.reply_delete", reply_id);
+	}
+	
+	public List<ReplyDTO> select_reReply(SqlSessionTemplate session, int reply_id) {
+		List<ReplyDTO> list = session.selectList("ReplyMapper.select_reReply", reply_id);
+		return list;
 	}
 }

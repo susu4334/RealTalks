@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.reeltalks.dao.ReplyDAO;
 import com.reeltalks.dto.ReplyDTO;
+import com.reeltalks.dto.ReplyWithNameDTO;
 
 @Service
 public class ReplyService {
@@ -21,8 +22,8 @@ public class ReplyService {
 		return dto;
 	}
 	
-	public List<ReplyDTO> reply_select_list(int post_id) {
-		List<ReplyDTO> list = dao.reply_select_list(session, post_id);
+	public List<ReplyWithNameDTO> reply_select_list(int post_id) {
+		List<ReplyWithNameDTO> list = dao.reply_select_list(session, post_id);
 		return list;
 	}
 
@@ -36,5 +37,10 @@ public class ReplyService {
 
 	public void reply_delete(String reply_id) {
 		dao.reply_delete(session, reply_id);
+	}
+	
+	public List<ReplyDTO> select_reReply(int reply_id) {
+		List<ReplyDTO> list = dao.select_reReply(session, reply_id);
+		return list;
 	}
 }
