@@ -10,11 +10,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where reply_id = #{reply_id}
 	</select>
 
-
-	<select id="reply_select_list" parameterType="int" resultType="ReplyDTO">
-		select *
+	<select id="reply_select_list" parameterType="int" resultType="ReplyWithNameDTO">
+	
+		select
+			post_id,
+			movie_id,
+			e.user_id,
+			d.user_name,
+			reply_id,
+			parent_reply_id,
+			reply_contents,
+			e.create_at,
+			e.update_at,
+			depth
+		from
+			tb_reply e, tb_user d
+		where
+			e.user_id = d.user_id and e.post_id = #{post_id}
+		order by
+			e.create_at asc
+	
+<!-- select post_id, movie_id, e.user_id, d.user_name, reply_id, parent_reply_id,
+reply_contents, e.create_at, e.update_at, depth
+from tb_reply e, tb_user d
+where e.user_id = d.user_id and e.post_id = 1
+order by e.create_at asc; -->
+	
+		<!-- select *
 		from TB_REPLY
-		where post_id = #{post_id}
+		where post_id = #{post_id} -->
 	</select>
 	
 	<insert id="reply_insert" parameterType="ReplyDTO">
@@ -58,6 +82,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 			reply_id = #{reply_id}
 	</delete>
+	
+	<select id="select_reReply" parameterType="int" resultType="ReplyDTO">
+		select * from
+ 			tb_reply
+		where
+    		parent_reply_id = #{reply_id}
+	</select>
 	
 </mapper>
 
