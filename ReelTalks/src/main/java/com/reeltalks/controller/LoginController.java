@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.reeltalks.dto.UserDTO;
 import com.reeltalks.login.GoogleAuth;
 import com.reeltalks.login.JwtDecoder;
+import com.reeltalks.securecode.SecureCode;
 import com.reeltalks.service.UserService;
 
 @Controller
@@ -89,10 +90,10 @@ public class LoginController {
         return "sessionSIgnUpCheck.jsp";
     }
 	
-	// 구글로그인 창으로 조회
+	// [로그인] 구글로그인 창으로 조회
 	@PostMapping("/googleLogin")
     public String googleLogin(@RequestParam("credential") String jwt, Model m, HttpSession session, HttpServletResponse response) {
-    	GoogleAuth auth = new GoogleAuth();
+		GoogleAuth auth = new GoogleAuth();
         auth = jwtDecoder.decode(jwt, GoogleAuth.class);
         System.out.println("jti 확인");
         System.out.println(auth.getJti());
@@ -102,29 +103,16 @@ public class LoginController {
         if (dto != null) {
         	System.out.println("알림창: 회원 정보가 있습니다.");
         	System.out.println(dto);
-        	
-//    	    Cookie token_id = new Cookie("token_id", auth.getJti());
-//    	    // 30초 후 만료됩니다.
-//    	    token_id.setMaxAge(30);
-//    	    token_id.setHttpOnly(true);
-//    	    token_id.setSecure(true);
-//    	    response.addCookie(token_id);
-    	    
-    	    // 여기서 부턴 test 작업
-    	    //response.
-    	    
-    	    
 
-    	    // 생성된 쿠키를 HttpSession에 저장합니다.
-        	session.setAttribute("jti_id", auth.getJti());
-    	    //session.setAttribute("token_id", token_id.getValue());
-//    	    session.setAttribute("cookie_id", token_id);
-    	    //session.setMaxInactiveInterval("30");
-    	    //System.out.println("세션 등록이 완료되었습니다.");
-    	    
-    	    m.addAttribute("user_id", dto.getUser_id());
+    	    // jwt decode한 정보를 HttpSession에 저장합니다.
+        	session.setAttribute("auth", auth);
+        	
+        	SecureCode secure = new SecureCode();
+        	String[] encryptedData = secure.encode(auth.getJti());
+        	
+    	    m.addAttribute("key1", encryptedData[0]);
+    	    m.addAttribute("key2", encryptedData[1]);
         } 
         return "sessionLoginCheck.jsp";
-        // 만약 비동기 처리로 json 타입으로 넘기게 된다면 return dto 하면됨
     }
 }

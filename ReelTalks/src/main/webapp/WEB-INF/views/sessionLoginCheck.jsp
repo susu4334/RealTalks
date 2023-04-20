@@ -8,7 +8,8 @@
 </head>
 <body>
 	sessionLoginCheck.jsp<br>
-	${ user_id }
+	${ key1 }
+	${ key2 }
 
 		<!-- 쿠키 값 읽어오기 -->
 <%-- 	<%
@@ -35,8 +36,8 @@
 	</script> --%>
 
 	<script>
-		console.log("/login/sso/${user_id}");
-		location.href = "/login/sso/${user_id}";
+		console.log("/login/sso/${key1}/${key2}");
+		location.href = "/login/sso/${key1}/${key2}";
 		//location.href = "../../";
 	</script>
 </body>
