@@ -1,0 +1,3 @@
+Oracle에 유저 만들기
+create user reeltalks IDENTIFIED BY tiger;
+grant connect, resource to reeltalks;

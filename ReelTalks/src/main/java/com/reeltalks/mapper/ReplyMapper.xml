@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReplyMapper">
+
+	<select id="reply_select" parameterType="int" resultType="ReplyDTO">
+		select *
+		from TB_REPLY
+		where reply_id = #{reply_id}
+	</select>
+
+	<select id="reply_select_list" parameterType="int" resultType="ReplyWithNameDTO">
+	
+		select
+			post_id,
+			movie_id,
+			e.user_id,
+			d.user_name,
+			reply_id,
+			parent_reply_id,
+			reply_contents,
+			e.create_at,
+			e.update_at,
+			depth
+		from
+			tb_reply e, tb_user d
+		where
+			e.user_id = d.user_id and e.post_id = #{post_id}
+		order by
+			e.create_at asc
+	
+<!-- select post_id, movie_id, e.user_id, d.user_name, reply_id, parent_reply_id,
+reply_contents, e.create_at, e.update_at, depth
+from tb_reply e, tb_user d
+where e.user_id = d.user_id and e.post_id = 1
+order by e.create_at asc; -->
+	
+		<!-- select *
+		from TB_REPLY
+		where post_id = #{post_id} -->
+	</select>
+	
+	<insert id="reply_insert" parameterType="ReplyDTO">
+		insert into TB_REPLY (
+		post_id,
+		movie_id,
+		user_id, 
+		reply_id, 
+		parent_reply_id, 
+		reply_contents, 
+		create_at, 
+		update_at, 
+		depth
+		)
+		values (
+		#{post_id}, 
+		#{movie_id}, 
+		#{user_id}, 
+		REPLY_SEQ.NEXTVAL, 
+        CASE 
+            WHEN #{parent_reply_id} = 0 THEN null 
+            ELSE #{parent_reply_id} 
+        END,  
+		#{reply_contents}, 
+		#{create_at}, 
+		#{update_at}, 
+		#{depth})
+	</insert>
+	
+	<update id="reply_update" parameterType="ReplyDTO">
+		UPDATE TB_REPLY
+		SET
+			reply_contents = #{reply_contents},
+			update_at = #{update_at}
+		WHERE
+			reply_id = #{reply_id}
+	</update>
+	
+	<delete id="reply_delete" parameterType="String">
+		delete from TB_REPLY
+		WHERE
+			reply_id = #{reply_id}
+	</delete>
+	
+	<select id="select_reReply" parameterType="int" resultType="ReplyDTO">
+		select * from
+ 			tb_reply
+		where
+    		parent_reply_id = #{reply_id}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
