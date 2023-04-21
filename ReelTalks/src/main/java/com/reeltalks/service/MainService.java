@@ -8,7 +8,7 @@ import com.reeltalks.dto.HotMovieDTO;
 import com.reeltalks.dto.HotPostDTO;
 
 public interface MainService {
-
+	
 	// boxOffice 데이터 가져오기
 	public abstract List<BoxOfficeDTO> selectBoxOffice();
 	
@@ -17,5 +17,12 @@ public interface MainService {
 	
 	// hotPost 데이터 가져오기
 	public abstract List<HotPostDTO> selectHotPost(int day);
+	
+	// FIX
+	// hotMoive 데이터 가져오기 고정
+	public abstract List<HotMovieDTO> selectHotMoiveFIX();
+		
+	// hotPost 데이터 가져오기
+	public abstract List<HotPostDTO> selectHotPostFIX();
 
 }
