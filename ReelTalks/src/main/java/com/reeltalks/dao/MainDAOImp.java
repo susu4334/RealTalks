@@ -66,7 +66,8 @@ public class MainDAOImp implements MainDAO {
 			
 			// 나머지 데이터 담기
 			send_dto.setTitle(receive_dto.getTitle());
-			send_dto.setImageLink(receive_dto.getImageLink());
+			send_dto.setImageLink("http://reeltalks.p-e.kr/images/" 
+					+ receive_dto.getImageLink()+".png");
 			send_dto.setDirector_Nm(receive_dto.getDirector_Nm());
 			
 			// 날짜 데이터 변경 2023-01-04 00:00:00 ⇒ 2023-01-04
