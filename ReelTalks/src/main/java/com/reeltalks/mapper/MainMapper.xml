@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TB_POST p ON m.movie_id = p.movie_id
 		where
 		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
-		p.create_at AND p.create_at <![CDATA[ <=]]>
+		p.create_at AND p.create_at <![CDATA[ <]]>
 		TRUNC(SYSDATE + 1)
 		group by m.movie_id, m.title
 		order by post_count DESC
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TB_REPLY r ON p.post_id = r.post_id
 		where
 		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
-		r.create_at AND r.create_at <![CDATA[ <=]]>
+		r.create_at AND r.create_at <![CDATA[ <]]>
 		TRUNC(SYSDATE + 1)
 		group by p.post_id, p.post_title
 		order by reply_Count DESC
