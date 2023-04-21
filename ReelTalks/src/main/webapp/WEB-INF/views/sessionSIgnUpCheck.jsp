@@ -30,7 +30,7 @@
 					alert("<%=alarm%>");
 					//넘겨야 되는 위치는 로그인눌렀을때 나오는 창
 					//location.href = "넘겨주면되는 vue 링크" + user_id;
-					location.href = "/singup";
+					location.href = "/signup";
 					//location.href = "/googleLogin.jsp";
 				</script>
 	<%  } else { %>
