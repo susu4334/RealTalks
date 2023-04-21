@@ -1,5 +1,7 @@
 package com.reeltalks.service;
 
+import java.util.List;
+
 import com.reeltalks.dto.Tb_Post;
 
 public interface PostService {
@@ -20,5 +22,7 @@ public interface PostService {
 	public abstract String userName(String user_id);
 
 	public abstract int addPostSelect(String user_id);
+
+	public abstract List<Tb_Post> selectList(String movie_id);
 	
 }

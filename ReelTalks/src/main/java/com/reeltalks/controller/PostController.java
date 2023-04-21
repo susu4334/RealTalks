@@ -1,6 +1,8 @@
 package com.reeltalks.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +21,37 @@ public class PostController {
 	
 	@Autowired
 	PostService service;
-	 
+	
+	//게시물 리스트 조회
+	@GetMapping("/movie/{movie_id}/post")
+	public List<PostJoin> selectList(@PathVariable("movie_id") String movie_id) {
+		
+		List<Tb_Post> list = service.selectList(movie_id);
+		
+		List<PostJoin> listPostResult = new ArrayList<>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			Tb_Post p = list.get(i);
+			
+			String movie_title=service.movieTitle(movie_id);//movie_title 가져오기
+			String user_id=p.getUser_id(); 
+			String user_name=service.userName(user_id);//user_name 가져오기 
+			
+			PostJoin post = new PostJoin(p.getPost_id(),p.getMovie_id(),p.getUser_id(),
+					p.getPost_title(),p.getContent(),p.getStar_rate(),p.getView_count(),
+					p.getComment_count(),p.getCreate_at(),p.getUpdate_at(),movie_title,
+					user_name);
+			
+			listPostResult.add(post);
+		}
+		System.out.println(listPostResult);
+		
+		return listPostResult;
+	}
+	
+	
+	
 	  
 	//게시물 상세조회 
 	 @GetMapping("/movie/{movie_id}/post/{post_id}")

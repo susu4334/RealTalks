@@ -1,5 +1,7 @@
 package com.reeltalks.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,13 @@ public class PostServiceImp implements PostService {
 	PostDAO dao;
 	@Autowired
 	SqlSessionTemplate session;
+	
+	//게시물 전체 조회
+	@Override
+	public List<Tb_Post> selectList(String movie_id) {
+		List<Tb_Post> list = dao.selectList(session, movie_id);
+		return list;
+	}
 	
 	
 	//게시물 등록
