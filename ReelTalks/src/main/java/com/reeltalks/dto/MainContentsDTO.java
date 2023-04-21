@@ -2,19 +2,19 @@ package com.reeltalks.dto;
 
 import java.util.List;
 
-public class MainListDTO {
-	List<BoxOfficeDTO> boxOffice;
+public class MainContentsDTO {
+	private List<BoxOfficeDTO> boxOffice;
 
-	List<HotMovieDTO> hotMovie;
+	private List<HotMovieDTO> hotMovie;
 
-	List<HotPostDTO> hotPost;
+	private List<HotPostDTO> hotPost;
 
-	public MainListDTO() {
+	public MainContentsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public MainListDTO(List<BoxOfficeDTO> boxOffice, List<HotMovieDTO> hotMovie, List<HotPostDTO> hotPost) {
+	public MainContentsDTO(List<BoxOfficeDTO> boxOffice, List<HotMovieDTO> hotMovie, List<HotPostDTO> hotPost) {
 		super();
 		this.boxOffice = boxOffice;
 		this.hotMovie = hotMovie;
