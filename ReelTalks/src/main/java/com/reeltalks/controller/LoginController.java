@@ -43,13 +43,19 @@ public class LoginController {
 	}
 	
 	// 회원등록(Post)
+	@ResponseBody
 	@PostMapping("/signup")
-	public void signup(@RequestParam("user_id") String user_id, String user_name) {
+	public String signup(@RequestParam("user_id") String user_id, String user_name) {
 		
 		UserDTO dto = 
 				new UserDTO(user_id, user_name, LocalDateTime.now(), LocalDateTime.now());
 		System.out.println(dto);
-		service.insert(dto);
+		int result = service.insert(dto);
+		if (result == 1) {
+			return "true";
+		} else {
+			return "false";
+		}
 	}
 	
 	// 닉네임 중복 검사
