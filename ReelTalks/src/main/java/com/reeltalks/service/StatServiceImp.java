@@ -17,13 +17,7 @@ public class StatServiceImp implements StatService {
 
 	@Autowired
 	SqlSessionTemplate session;
-
-	// 모든 통계 데이터 가져오기
-	@Override
-	public StatListDTO selectStat() {
-		return dao.selectStat(session);
-	}
-
+	
 	// 각 영화의 기간별 게시물 개수 가져오기
 	@Override
 	public List<StatDTO> selectPost(int day) {
@@ -40,6 +34,26 @@ public class StatServiceImp implements StatService {
 	@Override
 	public List<StatDTO> selectGenre(int day) {
 		return dao.selectGenre(session, day);
+	}
+
+	// FIX 고정된 부분
+	
+	// 각 영화의 일간 게시물 개수 가져오기
+	@Override
+	public List<StatDTO> selectPostFIX() {
+		return dao.selectPost(session, 1);
+	}
+	
+	// 영화별 일간 댓글 개수 가져오기
+	@Override
+	public List<StatDTO> selectReplyFIX() {
+		return dao.selectPost(session, 1);
+	}
+	
+	// 장르별 월간 게시물 + 댓글 개수 가져오기
+	@Override
+	public List<StatDTO> selectGenreFIX() {
+		return dao.selectPost(session, 31);
 	}
 
 }
