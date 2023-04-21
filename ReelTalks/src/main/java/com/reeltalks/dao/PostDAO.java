@@ -1,5 +1,7 @@
 package com.reeltalks.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.reeltalks.dto.Tb_Post;
@@ -21,5 +23,7 @@ public interface PostDAO {
 	public abstract String userName(SqlSessionTemplate session, String user_id);
 
 	public abstract int addPostSelect(SqlSessionTemplate session, String user_id);
+
+	public abstract List<Tb_Post> selectList(SqlSessionTemplate session, String movie_id);
 
 }

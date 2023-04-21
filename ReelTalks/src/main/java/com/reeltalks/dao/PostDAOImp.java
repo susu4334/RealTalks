@@ -1,5 +1,7 @@
 package com.reeltalks.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +10,12 @@ import com.reeltalks.dto.Tb_Post;
 @Repository
 public class PostDAOImp implements PostDAO{
 
+	@Override
+	public List<Tb_Post> selectList(SqlSessionTemplate session, String movie_id) {
+		List<Tb_Post> list = session.selectList("selectPostList", movie_id);
+		return list;
+	}
+	
 	
 	//게시물 등록 
 	@Override
