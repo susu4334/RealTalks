@@ -7,7 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게시물 리스트 조회 -->
 	<select id="selectPostList" parameterType="String" resultType="Tb_Post">
 		select *
-		from tb_post;
+		from tb_post
+		where movie_id = #{movie_id}
 	</select>
 	
 	<!-- 게시물 수정 -->

@@ -23,7 +23,7 @@ public class PostController {
 	PostService service;
 	
 	//게시물 리스트 조회
-	@GetMapping("/api/movie/${movie_id}/post")
+	@GetMapping("/movie/{movie_id}/post")
 	public List<PostJoin> selectList(@PathVariable("movie_id") String movie_id) {
 		
 		List<Tb_Post> list = service.selectList(movie_id);
