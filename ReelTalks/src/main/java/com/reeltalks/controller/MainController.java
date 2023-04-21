@@ -18,35 +18,41 @@ import com.reeltalks.service.StatService;
 
 @RestController
 public class MainController {
+	
+	// API 한 번 호출로 모든 데이터를 보내거나, 각 API로 데이터를 받아오기 위해서
+	// 모든 데이터 처리는 DAOimp에서 진행하였습니다.
 
 	@Autowired
 	MainService service;
 	@Autowired
 	StatService sService;
 	
+	// 영화별 게시물 개수, 영화별 댓글 개수, 카테고리별 게시물 + 댓글 개수
+	// 박스 오피스, 떠오르는 영화, 떠오르는 게시물
+
 	@GetMapping("main")
 	public MainDTO main() {
 		MainDTO dto = new MainDTO();
 		// 일간 각 영화의 게시물 개수
-		dto.setPost(sService.selectPost(1));
+		dto.setPost(sService.selectPostFIX());
 		// 일간 각 영화의 댓글 개수		
-		dto.setReply(sService.selectReply(1));
+		dto.setReply(sService.selectReplyFIX());
 		// 월간 카테고리별 게시물 + 댓글  개수		
-		dto.setGenre(sService.selectGenre(31));
+		dto.setGenre(sService.selectGenreFIX());
 		
 		// 박스 오피스
 		dto.setBoxOffice(service.selectBoxOffice());
 		// 떠오르는 영화
-		dto.setHotMovie(service.selectHotMoive(14));
+		dto.setHotMovie(service.selectHotMoiveFIX());
 		// 떠오르는 게시물
-		dto.setHotPost(service.selectHotPost(14));
-		
+		dto.setHotPost(service.selectHotPostFIX());
+
 		System.out.println(dto);
 		
 		return dto;
 	}
 
-	
+	// 박스 오피스, 떠오르는 영화, 떠오르는 게시물 
 
 	@GetMapping("/mainContents")
 	public MainContentsDTO mainContents() {
@@ -56,9 +62,9 @@ public class MainController {
 		// 박스 오피스
 		dto.setBoxOffice(service.selectBoxOffice());
 		// 떠오르는 영화
-		dto.setHotMovie(service.selectHotMoive(14));
+		dto.setHotMovie(service.selectHotMoiveFIX());
 		// 떠오르는 게시물
-		dto.setHotPost(service.selectHotPost(14));
+		dto.setHotPost(service.selectHotPostFIX());
 
 		System.out.println("MAIN API");
 		System.out.println(dto);
@@ -66,6 +72,8 @@ public class MainController {
 		return dto;
 	}
 
+
+	// 박스 오피스
 	@GetMapping("/boxOffice")
 	public List<BoxOfficeDTO> mainBoxOffice() {
 
@@ -79,6 +87,7 @@ public class MainController {
 		return list;
 	}
 
+	// 떠오르는 영화
 	@GetMapping("/hotMovie/{day}")
 	public List<HotMovieDTO> hotMovie(@PathVariable("day") int day) {
 
@@ -91,6 +100,7 @@ public class MainController {
 
 	}
 	
+	// 떠오르는 게시물
 	@GetMapping("/hotPost/{day}")
 	public List<HotPostDTO> hotPost(@PathVariable("day") int day) {
 		

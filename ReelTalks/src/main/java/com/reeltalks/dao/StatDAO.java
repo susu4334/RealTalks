@@ -9,9 +9,6 @@ import com.reeltalks.dto.StatListDTO;
 
 public interface StatDAO {
 	
-	// 모든 통계 데이터 가져오기
-	public abstract StatListDTO selectStat(SqlSessionTemplate session);
-
 	// 각 영화의 기간별 게시물 개수 가져오기	
 	public abstract List<StatDTO> selectPost(SqlSessionTemplate session, int day);
 

@@ -11,20 +11,6 @@ import com.reeltalks.dto.StatListDTO;
 @Repository
 public class StatDAOImp implements StatDAO {
 
-	// 모든 통계 데이터 가져오기
-	@Override
-	public StatListDTO selectStat(SqlSessionTemplate session) {
-		StatListDTO list = new StatListDTO();
-		// 일간 각 영화의 게시물 개수 가져오기
-		list.setPost(session.selectList("StatMapper.selectPost", 1));
-		// 일간 각 영화의 댓글개수 가져오기		
-		list.setReply(session.selectList("StatMapper.selectReply", 1));
-		// 월간 각 장르의 게시물 + 댓글 개수 가져오기		
-		list.setGenre(session.selectList("StatMapper.selectGenre", 31));
-		
-		return list;
-	}
-
 	// 각 영화의 기간별 게시물 개수 가져오기
 	@Override
 	public List<StatDTO> selectPost(SqlSessionTemplate session, int day) {
