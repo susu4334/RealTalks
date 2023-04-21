@@ -29,6 +29,7 @@ public class MainController {
 	
 	// 영화별 게시물 개수, 영화별 댓글 개수, 카테고리별 게시물 + 댓글 개수
 	// 박스 오피스, 떠오르는 영화, 떠오르는 게시물
+
 	@GetMapping("main")
 	public MainDTO main() {
 		MainDTO dto = new MainDTO();
@@ -45,14 +46,14 @@ public class MainController {
 		dto.setHotMovie(service.selectHotMoiveFIX());
 		// 떠오르는 게시물
 		dto.setHotPost(service.selectHotPostFIX());
-		
+
 		System.out.println(dto);
 		
 		return dto;
 	}
 
-	
 	// 박스 오피스, 떠오르는 영화, 떠오르는 게시물 
+
 	@GetMapping("/mainContents")
 	public MainContentsDTO mainContents() {
 
@@ -70,6 +71,7 @@ public class MainController {
 
 		return dto;
 	}
+
 
 	// 박스 오피스
 	@GetMapping("/boxOffice")
