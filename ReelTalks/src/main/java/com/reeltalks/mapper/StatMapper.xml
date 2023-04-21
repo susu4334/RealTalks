@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TB_POST p ON m.movie_id = p.movie_id
 		WHERE
 		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
-		p.create_at AND p.create_at <![CDATA[ <=]]>
+		p.create_at AND p.create_at <![CDATA[ <]]>
 		TRUNC(SYSDATE + 1)
 		GROUP BY m.title
 		ORDER BY stat_count DESC
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TB_REPLY r ON m.movie_id = r.movie_id
 		WHERE
 		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
-		r.create_at AND r.create_at <![CDATA[ <=]]>
+		r.create_at AND r.create_at <![CDATA[ <]]>
 		TRUNC(SYSDATE + 1)
 		GROUP BY m.title
 		ORDER BY stat_count DESC
@@ -45,13 +45,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT m.MOVIE_ID, COUNT(*) AS stat_count
 		FROM TB_MOVIE m
 		JOIN TB_POST p ON m.MOVIE_ID = p.MOVIE_ID
-		WHERE TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]> p.create_at AND p.create_at <![CDATA[ <=]]> TRUNC(SYSDATE + 1)
+		WHERE TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]> p.create_at AND p.create_at <![CDATA[ <]]> TRUNC(SYSDATE + 1)
 		GROUP BY m.MOVIE_ID
 		UNION ALL
 		SELECT m.MOVIE_ID, COUNT(*) AS stat_count
 		FROM TB_MOVIE m
 		JOIN TB_REPLY r ON m.MOVIE_ID = r.MOVIE_ID
-		WHERE TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]> r.create_at AND r.create_at <![CDATA[ <=]]> TRUNC(SYSDATE + 1)
+		WHERE TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]> r.create_at AND r.create_at <![CDATA[ <]]> TRUNC(SYSDATE + 1)
 		GROUP BY m.MOVIE_ID
 		) stat
 		ON mc.MOVIE_ID = stat.MOVIE_ID
