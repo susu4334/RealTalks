@@ -66,6 +66,8 @@ public class MainDAOImp implements MainDAO {
 			
 			// 나머지 데이터 담기
 			send_dto.setTitle(receive_dto.getTitle());
+			// 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
+			send_dto.setMovie_id(receive_dto.getImageLink());
 			send_dto.setImageLink("http://reeltalks.p-e.kr/images/" 
 					+ receive_dto.getImageLink()+".png");
 			send_dto.setDirector_Nm(receive_dto.getDirector_Nm());
