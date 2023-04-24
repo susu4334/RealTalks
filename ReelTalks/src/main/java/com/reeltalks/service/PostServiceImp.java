@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.reeltalks.dao.PostDAO;
+import com.reeltalks.dao.ReplyDAO;
 import com.reeltalks.dto.Tb_Post;
 
 @Service
@@ -79,6 +80,19 @@ public class PostServiceImp implements PostService {
 	public int addPostSelect(String user_id) {
 		// TODO Auto-generated method stub
 		return dao.addPostSelect(session,user_id);
+	}
+
+
+	//댓글수 증가
+	@Override
+	public void count_add(int post_id) {
+		dao.count_add(session,post_id);
+	}
+
+	//댓글수 감소
+	@Override
+	public void count_delete(int post_id) {
+		dao.count_delete(session,post_id);
 	}
 
 	

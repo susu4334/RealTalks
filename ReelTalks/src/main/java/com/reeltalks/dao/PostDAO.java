@@ -26,4 +26,8 @@ public interface PostDAO {
 
 	public abstract List<Tb_Post> selectList(SqlSessionTemplate session, String movie_id);
 
+	public abstract void count_add(SqlSessionTemplate session, int post_id);
+
+	public abstract void count_delete(SqlSessionTemplate session, int post_id);
+
 }

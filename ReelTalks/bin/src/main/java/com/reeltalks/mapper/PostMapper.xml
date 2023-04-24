@@ -62,16 +62,6 @@ VALUES (#{movie_id} , #{user_id},
 	where rownum <![CDATA[<]]> 2 
 	
 	</select>
-	
-	<!-- 댓글수 증가 -->
-	<update id="count_add" parameterType="int">
-	UPDATE Tb_Post SET comment_count = comment_count + 1 WHERE post_id = #{post_id}
-	</update>
-	
-	<!-- 댓글수 감소 -->
-	<update id="count_delete" parameterType="int">
-	UPDATE Tb_Post SET comment_count = comment_count - 1 WHERE post_id = #{post_id}
-	</update>
 </mapper>
 
 
