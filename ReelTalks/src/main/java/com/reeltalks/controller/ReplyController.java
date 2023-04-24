@@ -23,13 +23,23 @@ public class ReplyController {
 	@Autowired
 	ReplyService service;
 	
+	// 댓글 카운트 조회 (비동기처리 - 미)
+	@GetMapping("/movie/reply_count_test/{post_id}")
+	public int reply_count(@PathVariable("post_id") String post_id) {
+		
+		System.out.println("post_id : " + post_id);
+		int reply_count = service.reply_count(Integer.parseInt(post_id));
+		System.out.println("reply_count : " + reply_count);
+		return reply_count;
+	}
+	
+	
 	// 하나만 댓글조회 (비동기처리)
 	@GetMapping("/movie/{movie_id}/post/{post_id}/reply/{reply_id}")
 	public ReplyDTO reply_check(@PathVariable("movie_id") String movie_id,@PathVariable("post_id") String post_id, @PathVariable("reply_id") String reply_id) {
 		ReplyDTO dto = service.reply_select(Integer.parseInt(reply_id));
 		return dto;
 	}
-	
 	
 	// 댓글조회(비동기처리)
 	@GetMapping("/movie/{movie_id}/post/{post_id}/reply")
@@ -118,6 +128,8 @@ public class ReplyController {
 			@PathVariable("post_id") String post_id,
 			@PathVariable("reply_id") String reply_id,
 			String user_id, String reply_content) {
+		
+		System.out.println("reply_content : " + reply_content);
 		
 		if (reply_id != null) {
 			System.out.println("reply_id 값이 들어옴!");

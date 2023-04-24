@@ -11,6 +11,10 @@ import com.reeltalks.dto.ReplyWithNameDTO;
 @Repository
 public class ReplyDAO {
 
+	public int reply_count(SqlSessionTemplate session, int post_id) {
+		return session.selectOne("ReplyMapper.reply_count", post_id);
+	}
+	
 	public ReplyDTO reply_select(SqlSessionTemplate session, int reply_id) {
 		ReplyDTO dto = session.selectOne("ReplyMapper.reply_select", reply_id);
 		return dto;
