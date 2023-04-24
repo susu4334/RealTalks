@@ -75,7 +75,11 @@ public class MainDAOImp implements MainDAO {
 			
 			// 나머지 데이터 담기
 			send_dto.setTitle(receive_dto.getTitle());
+<<<<<<< Upstream, based on branch 'main' of https://github.com/susu4334/RealTalks.git
 //			 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
+=======
+			// 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
+>>>>>>> ce2ad83 프론트엔드에서 필요한 movie_id 추가 BoxOfficeDTO movie_id 추가 MainDAOImp에서 setMovied_id
 			send_dto.setMovie_id(receive_dto.getImageLink());
 			send_dto.setImageLink("http://reeltalks.p-e.kr/images/" 
 					+ receive_dto.getImageLink()+".png");
