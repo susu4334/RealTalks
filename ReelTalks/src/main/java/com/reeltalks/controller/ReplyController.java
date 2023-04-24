@@ -90,7 +90,7 @@ public class ReplyController {
 			String user_id, String reply_content, String parent_reply_id) {
 		
 		ReplyDTO dto = new ReplyDTO();
-		dto.setMovie_id(movie_id);
+		dto.setMovie_id(movie_id.toUpperCase());
 		dto.setPost_id(Integer.parseInt(post_id));
 		dto.setUser_id(user_id);
 		dto.setReply_contents(reply_content);
