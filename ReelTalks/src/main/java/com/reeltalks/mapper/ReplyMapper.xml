@@ -46,7 +46,6 @@ order by e.create_at asc; -->
 		post_id,
 		movie_id,
 		user_id, 
-		reply_id, 
 		parent_reply_id, 
 		reply_contents, 
 		create_at, 
@@ -57,7 +56,6 @@ order by e.create_at asc; -->
 		#{post_id}, 
 		#{movie_id}, 
 		#{user_id}, 
-		REPLY_SEQ.NEXTVAL, 
         CASE 
             WHEN #{parent_reply_id} = 0 THEN null 
             ELSE #{parent_reply_id} 
