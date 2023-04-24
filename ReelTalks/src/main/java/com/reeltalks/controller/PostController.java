@@ -21,7 +21,6 @@ public class PostController {
 	
 	@Autowired
 	PostService service;
-	
 	//게시물 리스트 조회
 	@GetMapping("/movie/{movie_id}/post")
 	public List<PostJoin> selectList(@PathVariable("movie_id") String movie_id) {
@@ -64,6 +63,7 @@ public class PostController {
 		System.out.println("조회"+movie_title);
 		
 		Tb_Post p=service.selectOne(post_id);//Tb_post 가져오기
+		
 		System.out.println("게시물 상세조회"+p);
 		
 		String user_id=p.getUser_id(); 
@@ -71,7 +71,8 @@ public class PostController {
 		System.out.println("조회"+user_name);
 		
 		service.updateView(post_id);//조회수 증가 
-		
+	
+	
 		PostJoin post=new PostJoin(p.getPost_id(),p.getMovie_id(),p.getUser_id(),
 				p.getPost_title(),p.getContent(),p.getStar_rate(),p.getView_count(),
 				p.getComment_count(),p.getCreate_at(),p.getUpdate_at(),movie_title,

@@ -24,5 +24,9 @@ public interface PostService {
 	public abstract int addPostSelect(String user_id);
 
 	public abstract List<Tb_Post> selectList(String movie_id);
+
+	public abstract void count_add(int post_id);
+	
+	public abstract void count_delete(int post_id);
 	
 }

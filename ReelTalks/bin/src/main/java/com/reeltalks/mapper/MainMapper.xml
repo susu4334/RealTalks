@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MainMapper">
+
+	<select id="selectBoxOffice" resultType="BoxOfficeDBDTO">
+		SELECT m.title as title,
+		m.movie_id as imageLink,
+		m.director_nm as director_nm,
+		m.actor_nm as actor_nm,
+		m.release_date as release_date,
+		c.category_id as category_id
+		FROM tb_movie m
+		INNER JOIN (
+		SELECT movie_id, LISTAGG(category_id, '/')
+		WITHIN GROUP (ORDER BY
+		category_id) AS category_id
+		FROM
+		MP_MOVIE_CATEGORY
+		WHERE movie_id IN (
+		SELECT movie_id
+		FROM tb_movie
+		WHERE
+		boxoffice_order IS NOT NULL
+		)
+		GROUP BY movie_id
+		) c
+		ON m.movie_id =
+		c.movie_id
+		WHERE m.boxoffice_order IS NOT NULL
+		ORDER BY
+		m.boxoffice_order ASC
+	</select>
+
+	<select id="selectHotMovie" parameterType="int" resultType="HotMovieDTO">
+		SELECT * FROM (
+		select
+		m.movie_id as movie_id,
+		m.title as title,
+		COUNT(*) as post_count
+		from TB_MOVIE m
+		JOIN
+		TB_POST p ON m.movie_id = p.movie_id
+		where
+		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
+		p.create_at AND p.create_at <![CDATA[ <]]>
+		TRUNC(SYSDATE + 1)
+		group by m.movie_id, m.title
+		order by post_count DESC
+		) WHERE
+		ROWNUM <![CDATA[ <=]]> 5
+	</select>
+	
+	<select id="selectHotPost" parameterType="int" resultType="HotPostDTO">
+		SELECT * FROM (
+		select
+		p.post_id as post_Id,
+		p.post_title as post_Title,
+		COUNT(*) as reply_Count
+		from TB_POST p
+		JOIN
+		TB_REPLY r ON p.post_id = r.post_id
+		where
+		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
+		r.create_at AND r.create_at <![CDATA[ <]]>
+		TRUNC(SYSDATE + 1)
+		group by p.post_id, p.post_title
+		order by reply_Count DESC
+		) WHERE
+		ROWNUM <![CDATA[ <=]]> 5
+	</select>
+
+</mapper>
+
+
+
+
+
+
