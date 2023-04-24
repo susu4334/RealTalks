@@ -17,6 +17,10 @@ public class ReplyService {
 	@Autowired
 	SqlSessionTemplate session;
 	
+	public int reply_count(int post_id) {
+		return dao.reply_count(session, post_id);
+	}
+	
 	public ReplyDTO reply_select(int reply_id) {
 		ReplyDTO dto = dao.reply_select(session, reply_id);
 		return dto;
