@@ -20,11 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 게시물 등록 -->
 	<insert id="addPost" parameterType="Tb_Post" >
-      insert into tb_post (post_id, movie_id, user_id,post_title,
+      insert into tb_post (movie_id, user_id,post_title,
       content,star_rate,
 view_count,comment_count,create_at,update_at) 
 <!-- VALUES (MOVIE_POST_SEQ.nextval, #{movie_id} , #{user_id},  -->
-VALUES (POST_SEQ.nextval, #{movie_id} , #{user_id}, 
+VALUES (#{movie_id} , #{user_id}, 
 #{post_title}, #{content}, #{star_rate},
  #{view_count}, #{comment_count}, #{create_at, jdbcType=TIMESTAMP},
   #{update_at, jdbcType=TIMESTAMP})
