@@ -22,11 +22,12 @@ public class CookieController {
 	@Autowired
 	UserService service;
 
+	// 회원가입할때 토큰 확인작업
 	@ResponseBody
 	@PostMapping("/session/{key1}/{key2}")
 	public UserDTO session(@PathVariable("key1") String key1, @PathVariable("key2") String key2, HttpSession session) {
 		
-		GoogleAuth auth = (GoogleAuth) session.getAttribute("auth");
+		GoogleAuth auth = (GoogleAuth) session.getAttribute("auth" + key1);
 		System.out.println("///////////!!!!////");
 		System.out.println(auth);
 		System.out.println(key1);
@@ -48,12 +49,12 @@ public class CookieController {
 		}
 	}
 	
-	// 로그인 토큰 확인작업
+	// 로그인할때 + 로그인 중일때 글 등록/수정/삭제 할때 확인하는 작업
 	@ResponseBody
 	@PostMapping("/session/auth/{key1}/{key2}")
 	public String session_check(@PathVariable("key1") String key1, @PathVariable("key2") String key2, HttpSession session) {
 	
-		GoogleAuth auth = (GoogleAuth) session.getAttribute("auth");
+		GoogleAuth auth = (GoogleAuth) session.getAttribute("auth" + key1);
 		
 		String[] encryptedData = {key1, key2};
 		String[] encryptedData2 = secure.encode(auth.getJti());

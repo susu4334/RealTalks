@@ -108,14 +108,14 @@ public class LoginController {
         	System.out.println("알림창: 회원 정보가 있습니다.");
         	System.out.println(dto);
 
-    	    // jwt decode한 정보를 HttpSession에 저장합니다.
-        	session.setAttribute("auth", auth);
-        	
         	SecureCode secure = new SecureCode();
         	String[] encryptedData = secure.encode(auth.getJti());
         	
     	    m.addAttribute("key1", encryptedData[0]);
     	    m.addAttribute("key2", encryptedData[1]);
+    	    
+    	    // jwt decode한 정보를 HttpSession에 저장합니다.
+        	session.setAttribute("auth" + encryptedData[0], auth);
         } 
         return "sessionLoginCheck.jsp";
     }
