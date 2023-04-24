@@ -15,15 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.reeltalks.dto.PostJoin;
 import com.reeltalks.dto.Tb_Post;
 import com.reeltalks.service.PostService;
-import com.reeltalks.service.ReplyService;
 
 @RestController
 public class PostController {
 	
 	@Autowired
 	PostService service;
-	@Autowired
-	ReplyService rservice;
 	//게시물 리스트 조회
 	@GetMapping("/movie/{movie_id}/post")
 	public List<PostJoin> selectList(@PathVariable("movie_id") String movie_id) {
