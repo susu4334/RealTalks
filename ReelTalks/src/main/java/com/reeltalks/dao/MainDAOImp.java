@@ -27,8 +27,17 @@ public class MainDAOImp implements MainDAO {
 //		
 //		// 받아 오기 성공
 		for (BoxOfficeDBDTO dto : receive_list) {
-			System.out.println(dto);
+			// 배우 미상
+			if (dto.getActor_Nm() == null) {
+				dto.setActor_Nm("미상");
+			}
+			// 카테고리 미상
+			if (dto.getCategory_Id() == null) {
+				dto.setCategory_Id("미상");
+			}
+			// System.out.println(dto);
 		}
+		
 		
 		// 받아온 데이터를 보내줄 데이터로 변경 배우, 카테고리 : String => List<String>으로 변경
 		List<BoxOfficeDTO> send_list = new ArrayList<BoxOfficeDTO>();
@@ -66,7 +75,7 @@ public class MainDAOImp implements MainDAO {
 			
 			// 나머지 데이터 담기
 			send_dto.setTitle(receive_dto.getTitle());
-			// 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
+//			 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
 			send_dto.setMovie_id(receive_dto.getImageLink());
 			send_dto.setImageLink("http://reeltalks.p-e.kr/images/" 
 					+ receive_dto.getImageLink()+".png");
@@ -80,6 +89,8 @@ public class MainDAOImp implements MainDAO {
 			String dateStr = receive_dto.getRelease_Date();
 			// 개봉일이 0000-00-00일 경우 현재 시간으로 데이터 넣기
 			if (dateStr == null) {
+				
+				
 				LocalDateTime currentTime = LocalDateTime.now();
 				dateStr = currentTime.format(formatter_long);
 			}
@@ -99,7 +110,7 @@ public class MainDAOImp implements MainDAO {
 			// send_list에 send_dto 추가
 			send_list.add(send_dto);
 			
-			// send_list 담겼는지 확인 (성공)
+      	// send_list 담겼는지 확인 (성공)
 //			System.out.println(send_list.get(i));
 		} // for end
 			

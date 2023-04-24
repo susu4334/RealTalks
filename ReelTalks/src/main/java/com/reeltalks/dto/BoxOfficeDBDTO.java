@@ -1,7 +1,5 @@
 package com.reeltalks.dto;
 
-import java.util.List;
-
 public class BoxOfficeDBDTO {
 	// 제목 = title
 	private String title;
