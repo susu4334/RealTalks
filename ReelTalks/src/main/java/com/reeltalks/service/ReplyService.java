@@ -31,16 +31,16 @@ public class ReplyService {
 		return list;
 	}
 
-	public void reply_insert(ReplyDTO dto) {
-		dao.reply_insert(session, dto);
+	public int reply_insert(ReplyDTO dto) {
+		return dao.reply_insert(session, dto);
 	}
 	
 	public void reply_update(ReplyDTO dto) {
 		dao.reply_update(session, dto);
 	}
 
-	public void reply_delete(String reply_id) {
-		dao.reply_delete(session, reply_id);
+	public int reply_delete(String reply_id) {
+		return dao.reply_delete(session, reply_id);
 	}
 	
 	public List<ReplyDTO> select_reReply(int reply_id) {

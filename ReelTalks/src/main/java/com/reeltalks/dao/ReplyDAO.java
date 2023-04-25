@@ -25,16 +25,16 @@ public class ReplyDAO {
 		return list;
 	}
 
-	public void reply_insert(SqlSessionTemplate session, ReplyDTO dto) {
-		session.insert("ReplyMapper.reply_insert", dto);
+	public int reply_insert(SqlSessionTemplate session, ReplyDTO dto) {
+		return session.insert("ReplyMapper.reply_insert", dto);
 	}
 	
 	public void reply_update(SqlSessionTemplate session, ReplyDTO dto) {
 		session.update("ReplyMapper.reply_update", dto);
 	}
 
-	public void reply_delete(SqlSessionTemplate session, String reply_id) {
-		session.update("ReplyMapper.reply_delete", reply_id);
+	public int reply_delete(SqlSessionTemplate session, String reply_id) {
+		return session.update("ReplyMapper.reply_delete", reply_id);
 	}
 	
 	public List<ReplyDTO> select_reReply(SqlSessionTemplate session, int reply_id) {

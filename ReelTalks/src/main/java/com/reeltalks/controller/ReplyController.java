@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reeltalks.dto.ReplyDTO;
 import com.reeltalks.dto.ReplyWithNameDTO;
+import com.reeltalks.service.PostService;
 import com.reeltalks.service.ReplyService;
 
 @RestController
 public class ReplyController {
 	@Autowired
 	ReplyService service;
+	@Autowired
+	PostService service_post;
 	
 	// 댓글 카운트 조회 (비동기처리 - 미)
 	@GetMapping("/movie/reply_count_test/{post_id}")
@@ -118,7 +121,12 @@ public class ReplyController {
 			
 		}
 		System.out.println(dto);
-		service.reply_insert(dto);
+		int result = service.reply_insert(dto);
+		if (result == 1) {
+			// 등록할때 포스트 db의 댓글 수 증가
+			service_post.count_add(Integer.parseInt(post_id));
+		}
+		
 	}
 	
 	// 수정(비동기처리)
@@ -149,6 +157,8 @@ public class ReplyController {
 			@PathVariable("post_id") String post_id,
 			@PathVariable("reply_id") String reply_id) {
 		
+		int result = 0;
+		
 		if (reply_id != null) {
 			System.out.println("reply_id 값이 들어옴!");
 			
@@ -158,7 +168,11 @@ public class ReplyController {
 				List<ReplyDTO> list = service.select_reReply(Integer.parseInt(reply_id));
 				if (list.size() == 0) {
 					//대댓글이 없을때 삭제해도됨
-					service.reply_delete(reply_id);
+					result = service.reply_delete(reply_id);
+					if (result == 1) {
+						// 삭제할때 포스트 db의 댓글 수 감소
+						service_post.count_delete(Integer.parseInt(post_id));
+					}
 					return "true";
 				} else {
 					//대댓글이 있을때 삭제하면안됨
@@ -167,7 +181,11 @@ public class ReplyController {
 				// 아니면 한번에 if문 sql문에 쓰기
 			} else if (dto.getDepth() == 2) {
 				// 대댓글일때는 묻고따지지도 않고 그냥 삭제
-				service.reply_delete(reply_id);
+				result = service.reply_delete(reply_id);
+				if (result == 1) {
+					// 삭제할때 포스트 db의 댓글 수 감소
+					service_post.count_delete(Integer.parseInt(post_id));
+				}
 				return "true";
 			}
 			
