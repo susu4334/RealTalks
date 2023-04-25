@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.reeltalks.dao.MovieDao;
 import com.reeltalks.dto.Movie;
+import com.reeltalks.dto.Moviedata;
 
 @Service("myService")
 public class MovieOracleService implements MovieService{
@@ -41,6 +42,12 @@ public class MovieOracleService implements MovieService{
 	public int delete(int movieid) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public Moviedata moviedata(String movie_id) {
+		return dao.moviedata(session, movie_id);
+		
 	}
 
 	

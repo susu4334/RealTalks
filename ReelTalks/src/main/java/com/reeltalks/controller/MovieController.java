@@ -21,11 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reeltalks.dto.Category;
 import com.reeltalks.dto.Movie;
 import com.reeltalks.dto.MovieCategory;
+import com.reeltalks.dto.Moviedata;
 import com.reeltalks.service.CategoryService;
 import com.reeltalks.service.MovieCategoryService;
 import com.reeltalks.service.MovieService;
@@ -200,6 +203,14 @@ public class MovieController {
 		}
 		
 		return null;
+	}
+	
+	@GetMapping("/movie/{movie_id}")
+	@ResponseBody
+	public Moviedata movie(@PathVariable("movie_id") String movie_id) {
+		Moviedata moviedata = service.moviedata(movie_id);
+		moviedata.setCategory_id("#"+moviedata.getCategory_id());
+		return moviedata;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.reeltalks.dto.Movie;
+import com.reeltalks.dto.Moviedata;
 
 public interface MovieDao {
 	
@@ -13,4 +14,5 @@ public interface MovieDao {
 	public abstract int  update(SqlSessionTemplate session, Movie dto);
 	public abstract int  delete(SqlSessionTemplate session, int movieid);
 	public abstract int find(SqlSessionTemplate session, String movie_id);
+	public abstract Moviedata moviedata(SqlSessionTemplate session, String movie_id);
 }
