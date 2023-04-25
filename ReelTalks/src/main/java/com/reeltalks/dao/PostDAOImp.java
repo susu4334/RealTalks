@@ -82,7 +82,7 @@ public class PostDAOImp implements PostDAO{
 	//댓글수 감소
 	@Override
 	public void count_delete(SqlSessionTemplate session, int post_id) {
-		session.update("connt_delete",post_id);
+		session.update("count_delete",post_id);
 	}
 	
 
