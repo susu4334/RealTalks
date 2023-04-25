@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.reeltalks.dto.Movie;
+import com.reeltalks.dto.Moviedata;
 @Repository
 public class MovieOracleDAO implements MovieDao{
 
@@ -37,6 +38,10 @@ public class MovieOracleDAO implements MovieDao{
 		return 0;
 	}
 
-	
+	@Override
+	public Moviedata moviedata(SqlSessionTemplate session, String movie_id) {
+		Moviedata moviedata = session.selectOne("moviedata", movie_id);
+		return moviedata;
+	}
 
 }
