@@ -30,9 +30,7 @@ public class ReplyController {
 	@GetMapping("/movie/reply_count_test/{post_id}")
 	public int reply_count(@PathVariable("post_id") String post_id) {
 		
-		System.out.println("post_id : " + post_id);
 		int reply_count = service.reply_count(Integer.parseInt(post_id));
-		System.out.println("reply_count : " + reply_count);
 		return reply_count;
 	}
 	
@@ -47,19 +45,8 @@ public class ReplyController {
 	// 댓글조회(비동기처리)
 	@GetMapping("/movie/{movie_id}/post/{post_id}/reply")
 	public List<ReplyWithNameDTO> reply_check_list(@PathVariable("movie_id") String movie_id,@PathVariable("post_id") String post_id) {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(movie_id);
-		System.out.println(post_id);
-		
 		List<ReplyWithNameDTO> list = service.reply_select_list(Integer.parseInt(post_id));
-		System.out.println("list뽑아옴?");
-		System.out.println(list.size());
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		System.out.println(list);
 		
-		// 받아온 값으로 장난치기
 		List<ReplyWithNameDTO> list_depth1 = new ArrayList<>();
 		List<ReplyWithNameDTO> list_depth2 = new ArrayList<>(); // <== 역순으로 세우자 느린날짜가 제일 앞에오게 최신글이 끝으로
 
@@ -71,9 +58,7 @@ public class ReplyController {
 				list_depth2.add(list.get(i));
 			}
 		}
-		
 		Collections.reverse(list_depth2);	// list 순서 뒤집기, 제일앞에온것은 제일 업데이트 날짜 느린값
-		
 		
 		// depth2에서 하나씩 꺼내와서 메인에다가 넣기
 		for (int i = 0; i < list_depth2.size(); i++) {			
@@ -88,9 +73,6 @@ public class ReplyController {
 				}
 			}
 		}
-		
-		System.out.println("///////////////////////////");
-		System.out.println(list_depth1);
 		
 		return list_depth1;
 	}
@@ -112,16 +94,15 @@ public class ReplyController {
 		
 		if (parent_reply_id == "" || parent_reply_id == null) {
 			// 대댓글일때
-			System.out.println("대댓글 아이디가 들어오지 않았음");
 			dto.setDepth(1);
 		} else {
-			System.out.println("대댓글 아이디가 들어왔음");
+			// 댓글일때
 			dto.setParent_reply_id(Integer.parseInt(parent_reply_id));
 			dto.setDepth(2);
 			
 		}
-		System.out.println(dto);
 		int result = service.reply_insert(dto);
+		
 		if (result == 1) {
 			// 등록할때 포스트 db의 댓글 수 증가
 			service_post.count_add(Integer.parseInt(post_id));
@@ -137,14 +118,11 @@ public class ReplyController {
 			@PathVariable("reply_id") String reply_id,
 			String user_id, String reply_content) {
 		
-		System.out.println("reply_content : " + reply_content);
-		
 		if (reply_id != null) {
-			System.out.println("reply_id 값이 들어옴!");
+			//reply_id 가 들어왔을때
 			ReplyDTO dto = service.reply_select(Integer.parseInt(reply_id));
 			dto.setReply_contents(reply_content);
 			dto.setUpdate_at(LocalDateTime.now());
-			System.out.println(dto);
 			
 			service.reply_update(dto);
 		}
@@ -160,7 +138,7 @@ public class ReplyController {
 		int result = 0;
 		
 		if (reply_id != null) {
-			System.out.println("reply_id 값이 들어옴!");
+			//reply_id가 들어왔을때
 			
 			ReplyDTO dto = service.reply_select(Integer.parseInt(reply_id));
 			if (dto.getDepth() == 1) {

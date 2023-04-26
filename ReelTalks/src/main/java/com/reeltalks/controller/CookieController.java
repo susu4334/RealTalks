@@ -28,21 +28,13 @@ public class CookieController {
 	public UserDTO session(@PathVariable("key1") String key1, @PathVariable("key2") String key2, HttpSession session) {
 		
 		GoogleAuth auth = (GoogleAuth) session.getAttribute("auth" + key1);
-		System.out.println("///////////!!!!////");
-		System.out.println(auth);
-		System.out.println(key1);
-		System.out.println(key2);
 		
 		String[] encryptedData = {key1, key2};
 		String[] encryptedData2 = secure.encode(auth.getJti());
 		
 		if (Arrays.equals(encryptedData, encryptedData2)) {
-			System.out.println("둘이 일치함!!!!!");
-			// 만약 둘이 같으면 UserDTO 를 전달
-			System.out.println(auth.getEmail());
-			System.out.println(auth.getEmail().split("@")[0]);
+			// 만약 가져온 key와 비교작업해서 같으면 UserDTO 를 전달
 			UserDTO dto = service.user_id_check(auth.getEmail().split("@")[0]);
-			System.out.println(dto);
 			return dto;
 		} else {
 			return null;
