@@ -17,7 +17,6 @@ public class JwtDecoder {
             String[] pieces = jwt.split("\\.");
             String b64payload = pieces[1];
             String jsonString = new String(Base64Utils.decode(b64payload.getBytes()));
-            System.out.println(jsonString);
             return objectMapper.readValue(jsonString,type);
         }catch (JsonProcessingException e){
             return null;
