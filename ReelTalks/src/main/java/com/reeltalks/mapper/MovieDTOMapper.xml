@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MovieDTOMapper">
+
+	<select id="selectMainList" resultType="Movie">
+		select * from tb_movie
+	</select>
+
+
+	<select id="selectCategory" resultType="Category">
+		select * from
+		tb_category
+	</select>
+
+
+
+	<select id="totalCount" resultType="int">
+		select count(*) from
+		tb_movie
+		join
+		mp_movie_category
+		on
+		tb_movie.movie_id =
+		mp_movie_category.movie_id
+		where
+		mp_movie_category.category_id =
+		#{category_id}
+	</select>
+
+
+	<select id="maintotalCount" resultType="int">
+		SELECT count(*)
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY t.movie_id ASC) AS rnum,
+		t.movie_id,
+		t.title, t.release_date, t.star_avg_rate, t.category_id
+		FROM (
+		SELECT tb_movie.movie_id, tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate,
+		LISTAGG(mp_movie_category.category_id, ' #')
+		WITHIN GROUP (ORDER BY mp_movie_category.category_id) AS
+		category_id
+		FROM tb_movie
+		JOIN mp_movie_category ON tb_movie.movie_id =
+		mp_movie_category.movie_id
+		GROUP BY tb_movie.movie_id, tb_movie.title,
+		tb_movie.release_date,
+		tb_movie.star_avg_rate
+		) t
+		)
+	</select>
+
+
+	<select id="etctotalCount" resultType="int">
+		SELECT count(*)
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY t.movie_id ASC) AS rnum,
+		t.movie_id,
+		t.title, t.release_date, t.star_avg_rate, t.category_id
+		FROM (
+		SELECT tb_movie.movie_id, tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate,
+		LISTAGG(mp_movie_category.category_id, ' #')
+		WITHIN GROUP (ORDER BY mp_movie_category.category_id) AS
+		category_id
+		FROM tb_movie
+		JOIN mp_movie_category ON tb_movie.movie_id =
+		mp_movie_category.movie_id
+		GROUP BY tb_movie.movie_id, tb_movie.title,
+		tb_movie.release_date,
+		tb_movie.star_avg_rate
+		) t
+		WHERE t.category_id NOT
+		LIKE '%액션%'
+		AND t.category_id NOT LIKE '%드라마%'
+		AND t.category_id NOT
+		LIKE '%멜로/로맨스%'
+		AND t.category_id NOT LIKE '%코메디%'
+		AND t.category_id NOT
+		LIKE '%공포%'
+		AND t.category_id NOT LIKE '%SF%'
+		AND t.category_id NOT LIKE
+		'%판타지%'
+		)
+	</select>
+
+	<select id="allSelect" resultType="MovieJoinDTO"
+		parameterType="hashmap">
+		SELECT *
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY
+		t.movie_id ASC) AS rnum, t.movie_id,
+		t.title, t.release_date,
+		t.star_avg_rate, t.category_id
+		FROM (
+		SELECT tb_movie.movie_id,
+		tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate,
+		LISTAGG(mp_movie_category.category_id, ' #') WITHIN GROUP (ORDER BY
+		mp_movie_category.category_id) AS
+		category_id
+		FROM tb_movie
+		JOIN
+		mp_movie_category ON tb_movie.movie_id = mp_movie_category.movie_id
+		GROUP BY tb_movie.movie_id, tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate
+		) t)
+		WHERE rnum BETWEEN #{startIdx} AND #{endIdx}
+	</select>
+
+
+	<select id="pageSelect" resultType="MovieJoinDTO"
+		parameterType="hashmap">
+		SELECT *
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY
+		t.movie_id ASC) AS rnum, t.movie_id,
+		t.title, t.release_date,
+		t.star_avg_rate, t.category_id
+		FROM (
+		SELECT tb_movie.movie_id,
+		tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate,
+		LISTAGG(mp_movie_category.category_id, ' #') WITHIN GROUP (ORDER BY
+		mp_movie_category.category_id) AS
+		category_id
+		FROM tb_movie
+		JOIN
+		mp_movie_category ON tb_movie.movie_id = mp_movie_category.movie_id
+		GROUP BY tb_movie.movie_id, tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate
+		) t
+		WHERE t.category_id LIKE '%' ||
+		#{category_id} || '%'
+		)
+		WHERE rnum
+		BETWEEN #{startIdx} AND #{endIdx}
+	</select>
+
+
+	<select id="etcSelect" resultType="MovieJoinDTO"
+		parameterType="hashmap">
+		SELECT *
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY
+		t.movie_id ASC) AS rnum, t.movie_id,
+		t.title, t.release_date,
+		t.star_avg_rate, t.category_id
+		FROM (
+		SELECT tb_movie.movie_id,
+		tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate,
+		LISTAGG(mp_movie_category.category_id, ' #') WITHIN GROUP (ORDER BY
+		mp_movie_category.category_id) AS
+		category_id
+		FROM tb_movie
+		JOIN
+		mp_movie_category ON tb_movie.movie_id = mp_movie_category.movie_id
+		GROUP BY tb_movie.movie_id, tb_movie.title, tb_movie.release_date,
+		tb_movie.star_avg_rate
+		) t
+		WHERE t.category_id NOT LIKE '%액션%'
+		AND
+		t.category_id NOT LIKE '%드라마%'
+		AND t.category_id NOT LIKE '%멜로/로맨스%'
+		AND t.category_id NOT LIKE '%코메디%'
+		AND t.category_id NOT LIKE '%공포%'
+		AND t.category_id NOT LIKE '%SF%'
+		AND t.category_id NOT LIKE '%판타지%'
+		)
+		WHERE rnum BETWEEN #{startIdx} AND #{endIdx}
+	</select>
+
+
+</mapper>
+
+
+
+
+
+

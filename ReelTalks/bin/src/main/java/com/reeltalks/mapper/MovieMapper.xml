@@ -23,6 +23,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where movie_id = #{movie_id}
 	</select>
 	
+	<select id="moviedata" parameterType="String" resultType="Moviedata">
+  		SELECT
+	    tb_movie.MOVIE_ID,
+	    TO_CHAR(tb_movie.actor_nm),
+	    tb_movie.boxoffice_order,
+	    tb_movie.director_nm,
+	    TO_CHAR(tb_movie.plot),
+	    tb_movie.rating,
+	    tb_movie.release_date,
+	    tb_movie.star_avg_rate,
+	    tb_movie.title,
+	    LISTAGG(mp_movie_category.CATEGORY_ID, ' #') WITHIN GROUP (ORDER BY mp_movie_category.CATEGORY_ID) AS category_id
+	  FROM tb_movie
+	  INNER JOIN mp_movie_category ON tb_movie.movie_id = mp_movie_category.movie_id
+	  WHERE tb_movie.movie_id = #{movieId}
+	  GROUP BY tb_movie.MOVIE_ID, TO_CHAR(tb_movie.actor_nm), tb_movie.boxoffice_order, tb_movie.create_at, tb_movie.director_nm, TO_CHAR(tb_movie.plot), 
+	  tb_movie.rating, tb_movie.release_date, tb_movie.star_avg_rate, tb_movie.title, tb_movie.update_at
+	</select>
+	
 </mapper>
 
 
