@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select *
 		from tb_post
 		where movie_id = #{movie_id}
+		order by create_at desc
 	</select>
 	
 	<!-- 게시물 수정 -->
