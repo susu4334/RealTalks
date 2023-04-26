@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectHotPost" parameterType="int" resultType="HotPostDTO">
 		SELECT * FROM (
 		select
-		p.post_id as post_Id,
+		p.movie_id, p.post_id as post_Id,
 		p.post_title as post_Title,
 		COUNT(*) as reply_Count
 		from TB_POST p
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TRUNC(SYSDATE - #{day}) <![CDATA[ <=]]>
 		r.create_at AND r.create_at <![CDATA[ <]]>
 		TRUNC(SYSDATE + 1)
-		group by p.post_id, p.post_title
+		group by p.movie_id, p.post_id, p.post_title
 		order by reply_Count DESC
 		) WHERE
 		ROWNUM <![CDATA[ <=]]> 5

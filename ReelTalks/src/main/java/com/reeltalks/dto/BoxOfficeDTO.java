@@ -5,6 +5,8 @@ import java.util.List;
 public class BoxOfficeDTO {
 	// 제목 = title
 	private String title;
+	// 영화id = movie_id
+	private String movie_id;
 	// 이미지 = /app/web/images/Movie_id.png // movie_id 필요
 	private String imageLink;
 	// 감독이름
@@ -21,10 +23,11 @@ public class BoxOfficeDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoxOfficeDTO(String title, String imageLink, String director_Nm, List<String> actor_Nm_list,
+	public BoxOfficeDTO(String title, String movie_id, String imageLink, String director_Nm, List<String> actor_Nm_list,
 			List<String> category_Id_list, String release_Date) {
 		super();
 		this.title = title;
+		this.movie_id = movie_id;
 		this.imageLink = imageLink;
 		this.director_Nm = director_Nm;
 		this.actor_Nm_list = actor_Nm_list;
@@ -38,6 +41,14 @@ public class BoxOfficeDTO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getMovie_id() {
+		return movie_id;
+	}
+
+	public void setMovie_id(String movie_id) {
+		this.movie_id = movie_id;
 	}
 
 	public String getImageLink() {
@@ -82,9 +93,9 @@ public class BoxOfficeDTO {
 
 	@Override
 	public String toString() {
-		return "BoxOfficeDTO [title=" + title + ", imageLink=" + imageLink + ", director_Nm=" + director_Nm
-				+ ", actor_Nm_list=" + actor_Nm_list + ", category_Id_list=" + category_Id_list + ", release_Date="
-				+ release_Date + "]";
+		return "BoxOfficeDTO [title=" + title + ", movie_id=" + movie_id + ", imageLink=" + imageLink + ", director_Nm="
+				+ director_Nm + ", actor_Nm_list=" + actor_Nm_list + ", category_Id_list=" + category_Id_list
+				+ ", release_Date=" + release_Date + "]";
 	}
 
 }
