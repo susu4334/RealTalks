@@ -75,7 +75,7 @@ public class LoginController {
 	
 	// [회원가입] 구글로그인 창으로 조회 
 	@PostMapping("/googleSignUp")
-    public String googleSignUp(@RequestParam("credential") String jwt, HttpSession session) {
+    public String googleSignUp(@RequestParam("credential") String jwt, Model m) {
     	GoogleAuth auth = new GoogleAuth();
         auth = jwtDecoder.decode(jwt, GoogleAuth.class);
         System.out.println(auth);
@@ -86,12 +86,14 @@ public class LoginController {
         
         if (dto != null) {
         	System.out.println("이미 가입한 구글계정입니다.");
-        	session.setAttribute("alarm", "이미 가입한 구글 계정입니다.");
+        	m.addAttribute("alarm", "이미 가입한 구글 계정입니다.");
+        	//session.setAttribute("alarm", "이미 가입한 구글 계정입니다.");
         } else {
         	System.out.println("가입을 진행해주세요!");
-        	session.setAttribute("user_id", email);
+        	m.addAttribute("user_id", email);
+        	//session.setAttribute("user_id", email);
         }
-        return "sessionSIgnUpCheck.jsp";
+        return "sessionSignUpCheck";
     }
 	
 	// [로그인] 구글로그인 창으로 조회
@@ -117,6 +119,6 @@ public class LoginController {
     	    // jwt decode한 정보를 HttpSession에 저장합니다.
         	session.setAttribute("auth" + encryptedData[0], auth);
         } 
-        return "sessionLoginCheck.jsp";
+        return "sessionLoginCheck";
     }
 }
