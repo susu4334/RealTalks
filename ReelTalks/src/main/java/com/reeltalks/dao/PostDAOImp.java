@@ -41,8 +41,7 @@ public class PostDAOImp implements PostDAO{
 	@Override
 	//@Mapper
 	public void updateView(SqlSessionTemplate session, int post_id) {
-		int num=session.update("updateView",post_id);
-		System.out.println(num);
+		session.update("updateView",post_id);
 	}
 	
 	
