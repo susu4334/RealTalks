@@ -44,7 +44,7 @@ public class MovieController {
 	
 
 	@GetMapping("/movieadd")
-	public String list(Model m, HttpServletRequest request) {
+	public void list(Model m, HttpServletRequest request) {
 		
 		String title ="";
 		
@@ -91,7 +91,7 @@ public class MovieController {
 		      e.printStackTrace();
 		   }
 		   		
-		return "movie";
+		//return "movie";
 	}
 	
 	@PostMapping("/movieadd")
