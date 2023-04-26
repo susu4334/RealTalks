@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<style>
+	p {
+		display: none;
+	}
+</style>
+<body>
+	<p id="key1" th:text="${key1}"></p>
+	<p id="key2" th:text="${key2}"></p>
+	<script th:inline="javascript">
+		var key1 = document.getElementById('key1').textContent;
+		var key2 = document.getElementById('key2').textContent;
+		console.log(key1);
+		console.log(key2);
+		location.href = '/login/sso/' + key1 + '/' + key2;
+	</script>
+</body>
+</html>

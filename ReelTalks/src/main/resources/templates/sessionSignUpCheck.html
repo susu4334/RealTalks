@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<style>
+	p {
+		display: none;
+	}
+</style>
+<body>
+	<p id="alarm" th:text="${alarm}"></p>
+	<p id="user_id" th:text="${user_id}"></p>
+	
+    <script th:inline="javascript">
+		var alarm = document.getElementById('alarm').textContent;
+		var user_id = document.getElementById('user_id').textContent;
+		
+		if (user_id == "") {
+		    // 회원가입이 이미 되어있을 때
+		    alert(alarm);
+		    location.href = "/signup";
+		} else {
+			// 회원가입이 가능할 경우
+			console.log(user_id);
+		    location.href = "/signup/" + user_id;
+		}
+    </script>
+</body>
+</html>
