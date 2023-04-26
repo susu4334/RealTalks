@@ -133,7 +133,7 @@ public class MainDAOImp implements MainDAO {
 	@Override
 	public List<HotPostDTO> selectHotPost(SqlSessionTemplate session, int day) {
 		
-		// 게시물Id, 게시물 제목, 댓글 수 상위 5개 받오기
+		// 영화Id, 게시물Id, 게시물 제목, 댓글 수 상위 5개 받오기
 		List<HotPostDTO> list = session.selectList("MainMapper.selectHotPost", day);
 		
 		// 출력 확인
