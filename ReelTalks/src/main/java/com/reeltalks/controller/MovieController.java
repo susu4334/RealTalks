@@ -42,58 +42,6 @@ public class MovieController {
 	@Autowired
 	MovieCategoryService service3;
 	
-
-	@GetMapping("/movieadd")
-	public String list(Model m, HttpServletRequest request) {
-		
-		String title ="";
-		
-		if (request.getParameter("title")!=null) {
-			title = request.getParameter("title");
-		}
-		 System.out.println("title"+title);
-		
-		String line = null;
-		String allData = null;
-		   
-		   try{
-		      String authkey = "0M1CRMOD0W2RFMSLVG1G";
-		      String query = title;
-		      query = URLEncoder.encode(query, "UTF-8");
-		      String collection = "kmdb_new2";
-		      String address = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection="+collection+"&detail=Y&listCount=100&ServiceKey="+authkey+"&title="+query;
-		      
-		      //객체 생성 및 url 연결
-		      URL url = new URL(address);
-		      URLConnection urlConn = url.openConnection();
-		      
-		      //데이터 받아오기
-		      InputStreamReader ir = new InputStreamReader(urlConn.getInputStream());
-		      BufferedReader br = new BufferedReader(ir);
-		      
-		      line = br.readLine();
-		      
-		      //모든 데이터
-		      allData="";
-		      
-		      while ((line = br.readLine()) != null) {
-		         allData+=line;
-		      }
-		      
-		      //System.out.println("allData : "+ allData);
-		      
-		      m.addAttribute("allData", allData);
-		      
-		      br.close();
-		      ir.close();
-		      
-		   }catch(Exception e){
-		      e.printStackTrace();
-		   }
-		   		
-		return "movie";
-	}
-	
 	@PostMapping("/movieadd")
 	public String movieadd(HttpServletRequest request, Model m) throws IOException {
 		String movie_id = request.getParameter("movie_id");
