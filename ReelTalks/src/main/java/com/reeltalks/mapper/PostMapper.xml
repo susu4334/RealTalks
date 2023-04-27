@@ -22,46 +22,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게시물 등록 -->
 	<insert id="addPost" parameterType="Tb_Post" >
       insert into tb_post (movie_id, user_id,post_title,
-      content,star_rate,
-view_count,comment_count,create_at,update_at) 
-<!-- VALUES (MOVIE_POST_SEQ.nextval, #{movie_id} , #{user_id},  -->
-VALUES (#{movie_id} , #{user_id}, 
-#{post_title}, #{content}, #{star_rate},
- #{view_count}, #{comment_count}, #{create_at, jdbcType=TIMESTAMP},
-  #{update_at, jdbcType=TIMESTAMP})
+      content,star_rate,view_count,comment_count,create_at,update_at) 
+	  VALUES (#{movie_id} , #{user_id}, 
+	  #{post_title}, #{content},
+		<choose>
+			<when test="star_rate!=0.0">
+			#{star_rate},
+			</when>
+			<otherwise>
+			null,
+			</otherwise>
+		</choose>
+ 	 #{view_count}, #{comment_count}, #{create_at, jdbcType=TIMESTAMP},
+     #{update_at, jdbcType=TIMESTAMP})
     </insert>
     
     <!--게시물 조회 -->
-    	<select id="selectOne" parameterType="int" resultType="Tb_Post">
+    <select id="selectOne" parameterType="int" resultType="Tb_Post">
 	   select *  from tb_post where post_id=#{post_id}
 	</select>
 	
 	<!-- 조회수 -->
 	<update id="updateView" >
-	UPDATE Tb_Post SET view_count = view_count + 1 WHERE post_id = #{post_id}
+		UPDATE Tb_Post SET view_count = view_count + 1 WHERE post_id = #{post_id}
 	</update>
 	
 	
 	<!-- 삭제 -->
 	<delete id="deletePost" parameterType="int">
-	delete from Tb_Post where post_id=#{post_id}
+		delete from Tb_Post where post_id=#{post_id}
 	</delete>
 	
 	<!-- 영화제목조회 -->
 	<select id="movieTitle" parameterType="String" resultType="String">
-	select title from tb_movie where movie_id=#{movie_id}
+		select title from tb_movie where movie_id=#{movie_id}
 	</select>
 	
 	<!-- 닉네임 조회 -->
 	<select id="userName" parameterType="String" resultType="String">
-	select user_name from tb_user where user_id=#{user_id}
+		select user_name from tb_user where user_id=#{user_id}
 	</select>
 	
 	<!-- insert게시물 조회 -->
 	<select id="addPostSelect" resultType="int">
-	 select post_id from (select * from tb_post where user_id=#{user_id} order by post_id desc) 
-	where rownum <![CDATA[<]]> 2 
-	
+	 	select post_id from (select * from tb_post where user_id=#{user_id} order by post_id desc) 
+		where rownum <![CDATA[<]]> 2 
 	</select>
 	
 	<!-- 댓글수 증가 -->

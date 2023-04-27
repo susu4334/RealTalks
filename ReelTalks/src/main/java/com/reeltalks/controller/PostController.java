@@ -44,23 +44,17 @@ public class PostController {
 			
 			listPostResult.add(post);
 		}
-		System.out.println(listPostResult);
 		
 		return listPostResult;
 	}
-	
-	
-	
 	  
 	//게시물 상세조회 
 	 @GetMapping("/movie/{movie_id}/post/{post_id}")
 	 public PostJoin selectOne(@PathVariable("movie_id") String movie_id,
 			 @PathVariable("post_id") int post_id) {
+		service.updateView(post_id);//조회수 증가
 		
 		String movie_title=service.movieTitle(movie_id);//movie_title 가져오기
-		System.out.println("조회"+movie_title);
-		
-		service.updateView(post_id);//조회수 증가 
 		
 		Tb_Post p=service.selectOne(post_id);//Tb_post 가져오기
 		
@@ -82,18 +76,16 @@ public class PostController {
 	@PostMapping("/movie/{movieid}/post")
 	public String addPost(
 			@PathVariable("movieid")String movie_id,Tb_Post post) {
-		System.out.println(post);
 		
 		post.setMovie_id(movie_id);
 		post.setCreate_at(LocalDateTime.now());
 		post.setUpdate_at(LocalDateTime.now());
-		
+
 		int num=service.addPost(post);//게시물 등록
 		System.out.println("addPost num : "+num);
 
 		return null;
 	}
-	
 	
 	
 	//게시물 수정 
