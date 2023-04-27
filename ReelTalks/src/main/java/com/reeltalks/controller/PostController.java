@@ -60,9 +60,7 @@ public class PostController {
 		String movie_title=service.movieTitle(movie_id);//movie_title 가져오기
 		
 		Tb_Post p=service.selectOne(post_id);//Tb_post 가져오기
-		
-		System.out.println("게시물 상세조회"+p);
-		
+				
 		String user_id=p.getUser_id(); //user_id 가져오기
 		String user_name=service.userName(user_id);//user_name 가져오기 
 	
@@ -80,15 +78,19 @@ public class PostController {
 	public String addPost(
 			@PathVariable("movieid")String movie_id,Tb_Post post) {
 		
+		if(post.getPost_title().isEmpty()|| post.getContent().isEmpty()) {
+			throw new RuntimeException("제목과 내용을 모두 입력해주세요.");
+			}  //프론트쪽에서 예외처리됨
+		
 		post.setMovie_id(movie_id);
 		post.setCreate_at(LocalDateTime.now());
 		post.setUpdate_at(LocalDateTime.now());
-
+		
 		int num=service.addPost(post);//게시물 등록
 		System.out.println("addPost num : "+num);
-		
+				
 		service_movie.movie_star_rate_calculator(movie_id);
-
+				
 		return null;
 	}
 	
@@ -96,7 +98,10 @@ public class PostController {
 	//게시물 수정 
 	@PutMapping("/movie/{movieid}/post/{postid}")
 	public String updatePost(Tb_Post post) {
-		System.out.println("update넘어온데이터"+post);
+		
+		if(post.getPost_title().isEmpty()|| post.getContent().isEmpty()) {
+			throw new RuntimeException("제목과 내용을 모두 입력해주세요.");
+			} //프론트쪽에서 예외처리됨
 
 		post.setUpdate_at(LocalDateTime.now());//수정시간 업데이트
 		
