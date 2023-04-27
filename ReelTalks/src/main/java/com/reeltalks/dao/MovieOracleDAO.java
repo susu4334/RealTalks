@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.reeltalks.dto.Movie;
 import com.reeltalks.dto.Moviedata;
+import com.reeltalks.dto.Tb_Post;
 @Repository
 public class MovieOracleDAO implements MovieDao{
 
@@ -43,5 +44,13 @@ public class MovieOracleDAO implements MovieDao{
 		Moviedata moviedata = session.selectOne("moviedata", movie_id);
 		return moviedata;
 	}
-
+	
+	@Override
+	public int movie_star_rate_calculator(SqlSessionTemplate session, String movie_id) {
+		System.out.println("들어왔냐 movie_star_rate_calculator");
+		System.out.println(movie_id);
+		int result_num = session.update("movie_star_rate_calculator", movie_id);
+		System.out.println("result_num : " + result_num);
+		return result_num;
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reeltalks.dto.PostJoin;
 import com.reeltalks.dto.Tb_Post;
+import com.reeltalks.service.MovieService;
 import com.reeltalks.service.PostService;
 
 @RestController
@@ -21,6 +22,8 @@ public class PostController {
 	
 	@Autowired
 	PostService service;
+	@Autowired
+	MovieService service_movie;
 	//게시물 리스트 조회
 	@GetMapping("/movie/{movie_id}/post")
 	public List<PostJoin> selectList(@PathVariable("movie_id") String movie_id) {
@@ -83,6 +86,8 @@ public class PostController {
 
 		int num=service.addPost(post);//게시물 등록
 		System.out.println("addPost num : "+num);
+		
+		service_movie.movie_star_rate_calculator(movie_id);
 
 		return null;
 	}
@@ -97,6 +102,9 @@ public class PostController {
 		
 		int num=service.updatePost(post);
 		System.out.println("update : "+num);
+		
+		service_movie.movie_star_rate_calculator(post.getMovie_id());
+		
 		return null;
 		}
 	
@@ -105,8 +113,13 @@ public class PostController {
 	@DeleteMapping("/movie/{movieid}/post/{postid}")
 	public String deletePost(@PathVariable("postid") int post_id) {
 		
+		Tb_Post p = service.selectOne(post_id);
+		
 		int num=service.deletePost(post_id);
 		System.out.println("delete : "+num);
+		
+		service_movie.movie_star_rate_calculator(p.getMovie_id());
+		
 		return null;
 	}
     
