@@ -85,7 +85,7 @@ public class LoginController {
         String email = auth.getEmail().split("@")[0];
         UserDTO dto = service.user_id_check(email);
         if (dto != null) {
-        	// 회원 정보가 없는 경우
+        	// 회원 정보가 있는 경우
         	SecureCode secure = new SecureCode();
         	String[] encryptedData = secure.encode(auth.getJti());
         	
@@ -93,7 +93,9 @@ public class LoginController {
     	    m.addAttribute("key2", encryptedData[1]);
     	    
         	session.setAttribute("auth" + encryptedData[0], auth);
-        } 
+        } else {
+        	// 회원 정보가 없는 경우
+        }
         return "sessionLoginCheck";
     }
 }

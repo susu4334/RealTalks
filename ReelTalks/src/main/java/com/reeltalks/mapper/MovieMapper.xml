@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="movie_star_rate_calculator" parameterType="String">
         UPDATE tb_movie
-		SET STAR_AVG_RATE = NULLIF((SELECT AVG(star_rate) FROM tb_post WHERE movie_id = #{movie_id}), 0)
+		SET STAR_AVG_RATE = NVL((SELECT avg(star_rate) FROM tb_post WHERE movie_id = #{movie_id}), 0)
 		WHERE movie_id = #{movie_id}
     </update>
 	
