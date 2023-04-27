@@ -91,7 +91,7 @@ public class MovieListController {
 			System.out.println("horror전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
-		case "SF":
+		case "sf":
 			category_id = "SF";
 			pageDTO = service.categoryList(category_id, curPage);
 			System.out.println(pageDTO);
