@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.reeltalks.dao.MovieDao;
 import com.reeltalks.dto.Movie;
 import com.reeltalks.dto.Moviedata;
+import com.reeltalks.dto.Tb_Post;
 
 @Service("myService")
 public class MovieOracleService implements MovieService{
@@ -50,5 +51,8 @@ public class MovieOracleService implements MovieService{
 		
 	}
 
-	
+	@Override
+	public int movie_star_rate_calculator(String movie_id) {
+		return dao.movie_star_rate_calculator(session, movie_id);
+	}
 }

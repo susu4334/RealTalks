@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.reeltalks.dto.Movie;
 import com.reeltalks.dto.Moviedata;
+import com.reeltalks.dto.Tb_Post;
 
 public interface MovieDao {
 	
@@ -15,4 +16,5 @@ public interface MovieDao {
 	public abstract int  delete(SqlSessionTemplate session, int movieid);
 	public abstract int find(SqlSessionTemplate session, String movie_id);
 	public abstract Moviedata moviedata(SqlSessionTemplate session, String movie_id);
+	public abstract int movie_star_rate_calculator(SqlSessionTemplate session, String movie_id);
 }
