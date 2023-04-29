@@ -46,8 +46,6 @@ public class MainController {
 		dto.setHotMovie(service.selectHotMoiveFIX());
 		// 떠오르는 게시물
 		dto.setHotPost(service.selectHotPostFIX());
-
-		System.out.println(dto);
 		
 		return dto;
 	}
@@ -66,9 +64,6 @@ public class MainController {
 		// 떠오르는 게시물
 		dto.setHotPost(service.selectHotPostFIX());
 
-		System.out.println("MAIN API");
-		System.out.println(dto);
-
 		return dto;
 	}
 
@@ -81,9 +76,6 @@ public class MainController {
 
 		list = service.selectBoxOffice();
 
-		System.out.println("BOXOFFICE API");
-		System.out.println(list);
-
 		return list;
 	}
 
@@ -92,9 +84,6 @@ public class MainController {
 	public List<HotMovieDTO> hotMovie(@PathVariable("day") int day) {
 
 		List<HotMovieDTO> list = service.selectHotMoive(day);
-
-		System.out.println("HOTMOVIE API");
-		System.out.println(list);
 
 		return list;
 
@@ -105,9 +94,6 @@ public class MainController {
 	public List<HotPostDTO> hotPost(@PathVariable("day") int day) {
 		
 		List<HotPostDTO> list = service.selectHotPost(day);
-			
-		System.out.println("HOTPOST API");
-		System.out.println(list);
 		
 		return list;
 		

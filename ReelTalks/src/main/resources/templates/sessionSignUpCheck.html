@@ -20,9 +20,11 @@
 		if (user_id == "") {
 		    // 회원가입이 이미 되어있을 때
 		    alert(alarm);
+		    //location.href = "https://reeltalk.p-e.kr/signup/";
 		    location.href = "/signup";
 		} else {
 			// 회원가입이 가능할 경우
+		    //location.href = "https://reeltalk.p-e.kr/signup/" + user_id;
 		    location.href = "/signup/" + user_id;
 		}
     </script>

@@ -16,7 +16,6 @@ public class SecureCode {
 		for (int i = 0; i < code.length(); i++) {
 			numStr = numStr + alphabetToNum(code.charAt(i));
 		}
-		System.out.println(numStr);
 		
 		BigDecimal dividend = new BigDecimal(numStr);
 		BigDecimal divisor = new BigDecimal(secretKey);

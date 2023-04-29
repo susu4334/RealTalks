@@ -38,94 +38,63 @@ public class MovieListController {
 	public List<MovieJoinDTO> movieList(@RequestParam("category_id") String category_id,
 			@RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 
-		System.out.println(category_id + "\t" + curPage);
-		System.out.println("movieList.jsp 불러오기");
-
 		PageDTO pageDTO = new PageDTO();
-
-		System.out.println(category_id);
 
 		switch (category_id) {
 		case "action":
 			category_id = "액션";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("Main전체페이지: " + pageDTO.getTotalPage());
 
 			// 위에서 액션이 있는지 먼저 찾고 난후 category_id의 값을 영어로 바꿔야 하기 때문에 마지막에 선언한다.
-			System.out.println("바뀐 값: " + category_id);
 			break;
 
 		case "drama":
 			category_id = "드라마";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("Main전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "romance":
 			category_id = "멜로/로맨스";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("Main전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "comedy":
 			category_id = "코메디";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("comedy전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "ani":
 			category_id = "애니메이션";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("ani전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "horror":
 			category_id = "공포";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("horror전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "sf":
 			category_id = "SF";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("SF전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "fantasy":
 			category_id = "판타지";
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("fantasy전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "movie":
-			System.out.println("movie선택");
 			pageDTO = service.maincategoryList(curPage);
-			System.out.println("movie전체페이지: " + pageDTO.getTotalPage());
 			break;
 			
 		case "etc":
-			System.out.println("etc선택");
 			pageDTO = service.etccategoryList(curPage);
-			System.out.println("etc전체페이지: " + pageDTO.getTotalPage());
 			break;
 		
 		default:
 			pageDTO = service.categoryList(category_id, curPage);
-			System.out.println(pageDTO);
-			System.out.println("Main전체페이지: " + pageDTO.getTotalPage());
 
 		}
-
-
-		System.out.println(pageDTO.getList());
 		return pageDTO.getList();
 	}
 

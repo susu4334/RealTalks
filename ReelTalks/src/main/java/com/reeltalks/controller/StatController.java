@@ -33,7 +33,6 @@ public class StatController {
 		dto.setReply(service.selectReplyFIX());
 		// 월간 카테고리별 게시물 + 댓글  개수		
 		dto.setGenre(service.selectGenreFIX());
-		System.out.println(dto);
 		return dto;
 	}
 	
@@ -42,8 +41,6 @@ public class StatController {
 	public List<StatDTO> statisticsPost(@PathVariable("day") int day) {
 		
 		List<StatDTO> list = service.selectPost(day);
-		System.out.println(day + "일간 각 영화의 게시물의 개수");
-		System.out.println(list);
 		return list;
 	}
 	
@@ -52,8 +49,6 @@ public class StatController {
 	public List<StatDTO> statisticsReply(@PathVariable("day") int day) {
 		
 		List<StatDTO> list = service.selectReply(day);
-		System.out.println(day + "일간 각 영화의 댓글의 개수");
-		System.out.println(list);
 		return list;
 	}
 	
@@ -62,8 +57,6 @@ public class StatController {
 	public List<StatDTO> statisticsGenre(@PathVariable("day") int day) {
 		
 		List<StatDTO> list = service.selectGenre(day);
-		System.out.println("월간 카테고리 별 게시글 + 댓글의 개수");
-		System.out.println(list);
 		return list;
 	}
 

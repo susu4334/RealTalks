@@ -46,9 +46,6 @@ public class MovieListService {
 		
 		int perPage = 8;
 		int totalCount = dao.totalCount(session, category_id);
-		
-		
-		System.out.println("전채 게시물 수: " + totalCount);
 
 		int totalPage = (int) Math.ceil((double) totalCount / (double) perPage);
 
@@ -83,9 +80,6 @@ public class MovieListService {
 		// TODO Auto-generated method stub
 		int perPage = 8;
 		int maintotalCount = dao.maintotalCount(session);
-		
-		System.out.println("main전체 게시물 수: " + maintotalCount);
-		
 		
 		int totalPage = (int) Math.ceil((double) maintotalCount / (double) perPage);
 		if (totalPage == 0) {
@@ -122,8 +116,6 @@ public class MovieListService {
 		int perPage = 8;
 		int etctotalCount = dao.etctotalCount(session);
 		
-		System.out.println("etc전체 게시물 수: " + etctotalCount);
-		
 		
 		int totalPage = (int) Math.ceil((double) etctotalCount / (double) perPage);
 		if (totalPage == 0) {
@@ -137,7 +129,6 @@ public class MovieListService {
 		if (curPage == totalPage) {
 
 			endIdx = startIdx + (etctotalCount % perPage);
-
 		}
 		
 		Criteria cri = new Criteria();

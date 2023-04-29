@@ -41,9 +41,9 @@ public class MovieController {
 	CategoryService service2;
 	@Autowired
 	MovieCategoryService service3;
-	
+	@ResponseBody
 	@PostMapping("/movieadd")
-	public String movieadd(HttpServletRequest request, Model m) throws IOException {
+	public void movieadd(HttpServletRequest request, Model m) throws IOException {
 		String movie_id = request.getParameter("movie_id");
 		String title = request.getParameter("title");
 		String release_date = request.getParameter("release_date");
@@ -60,8 +60,6 @@ public class MovieController {
         if (request.getParameter("poster").length()==0) {
         	imageUrlStr = "/images/noimage.png";	
 		}// 이쪽이 문제, 
-        
-        System.out.println("imageUrlStr : "+imageUrlStr);
         
         int width = 200; // 변경할 이미지의 너비
 		int height = (int) (200*1.3); // 변경할 이미지의 높이
@@ -97,7 +95,6 @@ public class MovieController {
 		////////////////////////////////////////////////////////////
 		
 		int findmovie = service.find(movie_id);
-		System.out.println("findmovie"+findmovie);
 		int n = 0;
 		if(findmovie==0) {
 			Movie movie = new Movie();
@@ -114,7 +111,6 @@ public class MovieController {
 			movie.setUpdate_at(LocalDateTime.now());
 			
 			n = service.insert(movie);
-			System.out.println("들어간 갯수 : "+n);
 		}
 		
 		
@@ -122,10 +118,8 @@ public class MovieController {
 		String[] catearr = category.split(",");
 		
 		for(String category_id : catearr) {
-			System.out.println("category_id"+category_id);
 			
 			int count = service2.find(category_id);
-			System.out.println("count"+count);
 			
 			if (count==0) {
 				Category mcategory = new Category();
@@ -134,10 +128,8 @@ public class MovieController {
 				mcategory.setUpdate_at(LocalDateTime.now());
 				
 				int n2 = service2.insert(mcategory);
-				System.out.println("카테고리 추가 : "+n2);
 			}
 			if(n==1) {
-				System.out.println("영화 들어감");
 				//moviecategory 테이블에 insert
 				MovieCategory moviecategory = new MovieCategory();
 				moviecategory.setMovie_id(movie_id);
@@ -146,11 +138,8 @@ public class MovieController {
 				moviecategory.setUpdate_at(LocalDateTime.now());
 				
 				int n3 = service3.insert(moviecategory);
-				System.out.println("db등록 : "+ n3);
 			}
 		}
-		
-		return null;
 	}
 	
 	@GetMapping("/movie/{movie_id}")

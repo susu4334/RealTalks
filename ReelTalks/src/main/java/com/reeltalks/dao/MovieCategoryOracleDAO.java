@@ -23,13 +23,11 @@ public class MovieCategoryOracleDAO implements MovieCategoryDao{
 
 	@Override
 	public int update(SqlSessionTemplate session, MovieCategory dto) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int delete(SqlSessionTemplate session, String movie_id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
