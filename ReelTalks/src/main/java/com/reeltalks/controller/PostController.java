@@ -87,7 +87,6 @@ public class PostController {
 		post.setUpdate_at(LocalDateTime.now());
 		
 		int num=service.addPost(post);//게시물 등록
-		System.out.println("addPost num : "+num);
 				
 		service_movie.movie_star_rate_calculator(movie_id);
 				
@@ -106,7 +105,6 @@ public class PostController {
 		post.setUpdate_at(LocalDateTime.now());//수정시간 업데이트
 		
 		int num=service.updatePost(post);
-		System.out.println("update : "+num);
 		
 		service_movie.movie_star_rate_calculator(post.getMovie_id());
 		
@@ -121,7 +119,6 @@ public class PostController {
 		Tb_Post p = service.selectOne(post_id);
 		
 		int num=service.deletePost(post_id);
-		System.out.println("delete : "+num);
 		
 		service_movie.movie_star_rate_calculator(p.getMovie_id());
 		

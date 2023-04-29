@@ -35,14 +35,11 @@ public class MainDAOImp implements MainDAO {
 			if (dto.getCategory_Id() == null) {
 				dto.setCategory_Id("미상");
 			}
-			// System.out.println(dto);
 		}
 		
 		
 		// 받아온 데이터를 보내줄 데이터로 변경 배우, 카테고리 : String => List<String>으로 변경
 		List<BoxOfficeDTO> send_list = new ArrayList<BoxOfficeDTO>();
-		
-//		System.out.println(receive_list.size()); //4
 		
 		for (int i = 0; i < receive_list.size(); i++) { // for start
 			// 받은 정보가 담긴 dto
@@ -77,7 +74,7 @@ public class MainDAOImp implements MainDAO {
 			send_dto.setTitle(receive_dto.getTitle());
 //			 프론트엔드에서 영화 게시판 이동용 movie_id 필요로 추가
 			send_dto.setMovie_id(receive_dto.getImageLink());
-			send_dto.setImageLink("http://reeltalks.p-e.kr/images/" 
+			send_dto.setImageLink("http://reeltalk.p-e.kr/images/" 
 					+ receive_dto.getImageLink()+".png");
 			send_dto.setDirector_Nm(receive_dto.getDirector_Nm());
 			
@@ -90,7 +87,6 @@ public class MainDAOImp implements MainDAO {
 			// 개봉일이 0000-00-00일 경우 현재 시간으로 데이터 넣기
 			if (dateStr == null) {
 				
-				
 				LocalDateTime currentTime = LocalDateTime.now();
 				dateStr = currentTime.format(formatter_long);
 			}
@@ -100,18 +96,9 @@ public class MainDAOImp implements MainDAO {
 			
 			send_dto.setRelease_Date(releaseDate);
 			
-			// 개봉일 제대로 담겨있는 확인 (성공)
-//			System.out.println("개봉일 " + releaseDate);
-			
-			// 카테고리 및 배우 리스트 안에 데이터가 제대로 담겨있는지 확인 (성공)
-//			System.out.println("Category temp = " + category_id);
-//			System.out.println("Actor temp = " + actor_nm);
-			
 			// send_list에 send_dto 추가
 			send_list.add(send_dto);
 			
-      	// send_list 담겼는지 확인 (성공)
-//			System.out.println(send_list.get(i));
 		} // for end
 			
 		return send_list;
@@ -124,9 +111,6 @@ public class MainDAOImp implements MainDAO {
 		// 영화Id, 영화 제목을 게시물 수 상위 5개 받아오기
 		List<HotMovieDTO> list  = session.selectList("MainMapper.selectHotMovie", day);
 		
-		// 출력 확인
-		System.out.println(list);
-		
 		return list;
 	}
 
@@ -135,9 +119,6 @@ public class MainDAOImp implements MainDAO {
 		
 		// 영화Id, 게시물Id, 게시물 제목, 댓글 수 상위 5개 받오기
 		List<HotPostDTO> list = session.selectList("MainMapper.selectHotPost", day);
-		
-		// 출력 확인
-		System.out.println(list);
 		
 		return list;
 	}

@@ -19,14 +19,12 @@ import com.reeltalks.dto.PageDTO;
 public class MovieListDAO {
 
 	public List<Movie> selectMainList(SqlSessionTemplate session) {
-		// TODO Auto-generated method stub
 		List<Movie> list = session.selectList("MovieDTOMapper.selectMainList");
 
 		return list;
 	}
 
 	public List<Category> selectCategory(SqlSessionTemplate session) {
-		// TODO Auto-generated method stub
 		List<Category> clist = session.selectList("MovieDTOMapper.selectCategory");
 		return clist;
 	}
@@ -40,18 +38,13 @@ public class MovieListDAO {
 	}
 
 	public List<MovieJoinDTO> joinList(SqlSessionTemplate session, String category_id, Criteria cri) {
-		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>();
 		map.put("category_id", category_id);
 		map.put("startIdx", cri.getStartIdx());
 		map.put("endIdx", cri.getEndIdx());
 
-		System.out.println("해당 카테고리를 선택한 DAO");
 		List<MovieJoinDTO> joinList = session.selectList("MovieDTOMapper.pageSelect", map);
-		System.out.println("joinList: " + joinList);
 
-
-		// 앞 문자열에 #추가(sql 문에서는 맨앞에 추가 안되어있음)
 		for (int i = 0; i < joinList.size(); i++) {
 
 			String data = joinList.get(i).getCategory_id();
@@ -64,7 +57,6 @@ public class MovieListDAO {
 	}
 
 	public int maintotalCount(SqlSessionTemplate session) {
-		// TODO Auto-generated method stub
 		int n = session.selectOne("MovieDTOMapper.maintotalCount");
 		return n;
 	}
@@ -75,9 +67,7 @@ public class MovieListDAO {
 		map.put("startIdx", cri.getStartIdx());
 		map.put("endIdx", cri.getEndIdx());
 
-		System.out.println("Movie 카테고리를 선택한 DAO");
 		List<MovieJoinDTO> moviejoinList = session.selectList("MovieDTOMapper.allSelect", map);
-		System.out.println("moviejoinList: " + moviejoinList);
 
 		// 앞 문자열에 #추가(sql 문에서는 맨앞에 추가 안되어있음)
 		for (int i = 0; i < moviejoinList.size(); i++) {
@@ -103,9 +93,7 @@ public class MovieListDAO {
 		map.put("startIdx", cri.getStartIdx());
 		map.put("endIdx", cri.getEndIdx());
 
-		System.out.println("etc 카테고리를 선택한 DAO");
 		List<MovieJoinDTO> etcjoinList = session.selectList("MovieDTOMapper.etcSelect", map);
-		System.out.println("etcjoinList: " + etcjoinList);
 
 		// 앞 문자열에 #추가(sql 문에서는 맨앞에 추가 안되어있음)
 		for (int i = 0; i < etcjoinList.size(); i++) {
